@@ -1,7 +1,7 @@
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Tag = require('../models/Tags');
-const { uploadImageToCloudinary } = require('../utilis/imageUploader')
+const { uploadFileToCloudinary } = require('../utilis/fileUploader');
 
 // create course
 exports.createCourse = async (req, res) => {
@@ -42,7 +42,7 @@ exports.createCourse = async (req, res) => {
         }
 
         // upload image to cloudinary
-        const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
+        const thumbnailImage = await uploadFileToCloudinary(thumbnail, process.env.FOLDER_NAME);
 
         // create an Entry for new course
         const newCourse = await Course.create({
@@ -67,7 +67,11 @@ exports.createCourse = async (req, res) => {
         );
 
         // update the TAG in Tag schema
-
+        const updatedTag = Tag.create({
+            tag,
+            description,
+            course: newCourse._id,
+        })
 
         // return response
         return res.status(200).json({

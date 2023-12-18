@@ -1,32 +1,32 @@
-const Tag = require('../models/Tags');
+const Category = require('../models/Category');
 
 // CREATE A COURSE TAG
-exports.createTag = async(req,res) => {
+exports.createCategory = async(req,res) => {
     try{
         // fetch data
         const {name,description} = req.body;
         // data validation
-        if(!name || !description){
+        if(!name){
             return res.status(401).json({
                 success:false,
                 message:"Please fill all fields",
             })
         }
         // create entry in db
-        const tagDetails = await Tag.create({
+        const categoryDetails = await Category.create({
             name:name,
             description:description,
         });
-        console.log(tagDetails);
+        console.log(categoryDetails);
 
         // return response
         return res.status(200).json({
             success:false,
-            message:"Tag created Successfully",
+            message:"Category created Successfully",
         })
 
     }catch(error){
-        console.log("Error occured at Create Tag Controller");
+        console.log("Error occured at Create Category Controller");
         return res.status(500).json({
             success:false,
             message:error.message,
@@ -34,18 +34,19 @@ exports.createTag = async(req,res) => {
     }
 }
 
+
 // GET ALL TAGS
-exports.showAllTags = async(req,res) => {
+exports.showAllCategories = async(req,res) => {
     try{
-        const allTags = await Tag.find({},{name:true,
+        const allCategories = await Category.find({},{name:true,
                                 description:true});
         res.status(200).json({
             success:true,
-            message:"All Tags returned SuccessFully",
-            allTags,
+            message:"All Categories returned SuccessFully",
+            data:allCategories,
         })
     }catch(error){
-        console.log("Error Occured while Fetching Tags");
+        console.log("Error Occured while Fetching Categories");
         return res.status(500).json({
             success:true,
             message:error.message,
