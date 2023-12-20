@@ -1,49 +1,61 @@
 const mongoose = require('mongoose');
 
 const courseSchema = new mongoose.Schema({
-    courseName:{
-        type:String,
-        required:true,
+    courseName: {
+        type: String,
+        required: true,
     },
-    courseDescription:{
-        type:String,
-        required:true,
+    courseDescription: {
+        type: String,
+        required: true,
     },
-    instructor:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true,
+    instructor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     },
-    whatYouWillLearn:{
-        type:String,
+    whatYouWillLearn: {
+        type: String,
     },
-    courseContent:[
+    courseContent: [
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Section",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Section",
         }
     ],
-    ratingsAndReviews:[
+    ratingsAndReviews: [
         {
-            type:mongoose.Schema.ObjectId,
-            ref:"RatingAndReview",
+            type: mongoose.Schema.ObjectId,
+            ref: "RatingAndReview",
         }
     ],
-    price:{
-        type:Number,
+    price: {
+        type: Number,
     },
-    thumbnail:{
-        type:String,
+    thumbnail: {
+        type: String,
     },
-    tag:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Tag"
+    tag: {
+        type: [String],
+        required: true,
     },
-    studentsEnrolled:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:"User",
-    }
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        // required: true,
+        ref: "Category",
+    },
+    studentsEnrolled: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User",
+    }],
+    instructions: {
+        type: [String],
+    },
+    status: {
+        type: String,
+        enum: ["Draft", "Published"],
+    },
 })
 
-module.exports = mongoose.model("Course",courseSchema );
+module.exports = mongoose.model("Course", courseSchema);
