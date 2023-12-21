@@ -16,7 +16,7 @@ exports.resetPasswordToken = async (req, res, next) => {
             })
         }
         // creating a token with expiration time (if user found)
-        const token = crypto.randomUUID();    // given a radom string - we will use this as token
+        const token = crypto.randomUUID();    // gives a radom string - we will use this as token
         // update User model by adding token and expiration time
         const updatedDetails = await User.findOneAndUpdate({ email: email },
             {
@@ -46,7 +46,6 @@ exports.resetPasswordToken = async (req, res, next) => {
         })
     }
 }
-
 
 // reset Password
 exports.resetPassword = async (req, res) => {
@@ -95,3 +94,4 @@ exports.resetPassword = async (req, res) => {
         })
     }
 }
+

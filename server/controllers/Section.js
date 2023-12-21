@@ -81,6 +81,7 @@ exports.updateSection = async(req,res) =>{
     }
 }
 
+// delete a section
 exports.deleteSection = async(req,res) => {
     try{
         // get section ID - assuming we are sending ID in params

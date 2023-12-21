@@ -34,7 +34,6 @@ exports.createCategory = async(req,res) => {
     }
 }
 
-
 // GET ALL TAGS
 exports.showAllCategories = async(req,res) => {
     try{
@@ -89,7 +88,6 @@ exports.categoryPageDetails = async(req,res) => {
             },
             message:"Additional course suggestions added"
         })
-
     }catch(error){
         console.log("Error occured at categoryPageDetails");
         return res.status(500).json({

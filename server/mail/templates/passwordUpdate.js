@@ -1,5 +1,5 @@
 exports.passwordUpdated = (email, name) => {
-	return `<!DOCTYPE html>
+	return (`<!DOCTYPE html>
     <html>
     
     <head>
@@ -15,7 +15,6 @@ exports.passwordUpdated = (email, name) => {
                 margin: 0;
                 padding: 0;
             }
-    
     
             .container {
                 max-width: 600px;
@@ -71,5 +70,5 @@ exports.passwordUpdated = (email, name) => {
         </div>
     </body>
     
-    </html>`;
+    </html>`);
 };
