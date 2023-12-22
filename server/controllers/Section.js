@@ -14,10 +14,11 @@ exports.createSection = async(req,res) => {
             })
         }
         // create section
-        const newSection = Section.create({sectionName});
+        const newSection = await Section.create({sectionName:sectionName});
+
         // update the section object in course
         const updatedCourseDetails = await Course.findByIdAndUpdate(
-            courseId,
+            { _id:courseId },
             {
                 $push:{
                     courseContent:newSection._id,
@@ -29,7 +30,7 @@ exports.createSection = async(req,res) => {
             populate: {
               path: "subSection",
             },
-          })
+          }).exec();
         // return response
         return res.status(200).json({
             success:true,
@@ -85,7 +86,15 @@ exports.updateSection = async(req,res) =>{
 exports.deleteSection = async(req,res) => {
     try{
         // get section ID - assuming we are sending ID in params
-        const {sectionId} = req.params;
+        const {sectionId} = req.body;
+        
+        if(!sectionId){
+            return res.status(400).json({
+                success:false,
+                message:"Either section does not exists or ID not valid",
+            })
+        }
+
         // find by ID and Delete
         await Section.findByIdAndDelete(sectionId);
         // TODO: Do we need to delete the section schema in course ?

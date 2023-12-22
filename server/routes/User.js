@@ -9,7 +9,8 @@ const {resetPassword,resetPasswordToken} = require('../controllers/ResetPassword
 // create routes
 router.post('/signUp',signUp);
 router.post('/login',login);
-
+router.post('/reset-password-token',resetPasswordToken);
+router.post('/reset-password',resetPassword);
 
 // *****************   protected routes  ************************
 // Route for sending OTP to the user's email

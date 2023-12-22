@@ -1,6 +1,6 @@
 const Category = require('../models/Category');
 
-// CREATE A COURSE TAG
+// CREATE A COURSE category
 exports.createCategory = async(req,res) => {
     try{
         // fetch data
@@ -21,7 +21,7 @@ exports.createCategory = async(req,res) => {
 
         // return response
         return res.status(200).json({
-            success:false,
+            success:success,
             message:"Category created Successfully",
         })
 

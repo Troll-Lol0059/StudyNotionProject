@@ -51,7 +51,7 @@ exports.sendOTP = async (req, res) => {
 
         // create a entry in DB for OTP
         const otpBody = await OTP.create(otpPayload);
-        // console.log(otpBody);
+        console.log(otpBody);
 
         // return successful response
         res.status(200).json({
@@ -215,7 +215,7 @@ exports.login = async (req, res) => {
     }
 }
 
-
+// todo - need a logout func
 exports.changePassword = async(req,res) => {
     try{
         // fetch data from req body
@@ -236,9 +236,12 @@ exports.changePassword = async(req,res) => {
             })
         }
   
-        const userDetails = await User.findOne({ token: token });
+        const userDetails = await User.findOne({token: req.token});
+        console.log(userDetails);
 
-        const isPasswordMatch = await bcrypt.compare(oldPassword, userDetails.password);
+        const isPasswordMatch = bcrypt.compare(oldPassword, userDetails.password);
+        // console.log(oldPassword," ",userDetails.password);
+        // console.log(isPasswordMatch);
         if(!isPasswordMatch) {
             return res.status(400).json({
                 success:false,
@@ -265,8 +268,10 @@ exports.changePassword = async(req,res) => {
         // send notification mail
         try{
             await mailSender(userDetails.email,
+                "Password Changed Successfully",
                 passwordUpdated(
-                    `Password updated successfully for ${userDetails.firstName} ${userDetails.lastName}`
+                    userDetails.email,
+                    `${userDetails.firstName} ${userDetails.lastName}`
                 ));
 
         }catch(error){

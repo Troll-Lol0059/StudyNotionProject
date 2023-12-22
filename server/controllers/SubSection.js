@@ -1,27 +1,27 @@
 const SubSection = require('../models/SubSection');
 const Section = require('../models/Section');
 require("dotenv").config();
+const { uploadFileToCloudinary } = require('../utilis/fileUploader');
 
 // create SubSection
 exports.createSubSection = async (req, res) => {
     try {
         // fetch data from req body
-        const { sectionId, title, timeDuration, description } = req.body;
-        // extract video from file
-        const { video } = req.files.videoFile;
-        // do validation
-        if (!sectionId || !title || !timeDuration || !description) {
-            return res.status(400).json({
-                success: true,
-                message: "All fields are required",
-            })
+        const { sectionId, title, description, } = req.body;
+        const video = req.files.videoFile;
+  
+        // Check if all necessary fields are provided
+        if (!sectionId || !title || !description || !video) {
+          return res
+            .status(404)
+            .json({ success: false, message: "All Fields are Required" })
         }
         // upload video to cloudinary and get secure url
         const uploadDetails = await uploadFileToCloudinary(video, process.env.FOLDER_NAME);
         // create sub-section
         const subSectionDetails = await SubSection.create({
             title: title,
-            timeDuration: timeDuration,
+            timeDuration: `${uploadDetails.duration}`,
             description: description,
             videoUrl: uploadDetails.secure_url,
         })

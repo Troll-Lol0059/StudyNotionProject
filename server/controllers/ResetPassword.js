@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const mailSender = require('../utilis/mailSender');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
 
 // reset password token
 exports.resetPasswordToken = async (req, res, next) => {
@@ -8,7 +10,7 @@ exports.resetPasswordToken = async (req, res, next) => {
         // get email from req body
         const { email } = req.body;
         // check user for this email , email validation
-        const existingUser = User.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(401).json({
                 success: false,
@@ -21,18 +23,18 @@ exports.resetPasswordToken = async (req, res, next) => {
         const updatedDetails = await User.findOneAndUpdate({ email: email },
             {
                 token: token,
-                resetPasswordExpires: Date.now() + 5 * 60 * 1000,
+                resetPasswordExpires: Date.now() + 3600000,
             },
             { new: true });
         console.log(updatedDetails);
         // generate link
         const url = `http://localhost:3000/update-password/${token}`
+        console.log(token);
         // send mail containing URL
-        await mailSender(email,
-            "Password Reset Link"
-            , `Password Reset Link: ${url}`);
-        // call the next middleware
-        next();
+        // await mailSender(email,
+        //     "Password Reset Link"
+        //     , `Password Reset Link: ${url}`);
+
         // return response
         return res.status(200).json({
             success: true,
@@ -69,7 +71,7 @@ exports.resetPassword = async (req, res) => {
             })
         }
         // token time check
-        if (!userDetails.resetPasswordExpires < Date.now()) {
+        if (!(userDetails.resetPasswordExpires > Date.now())) {
             return res.json({
                 success: false,
                 message: "Token is expired. Please re-generate your token"
