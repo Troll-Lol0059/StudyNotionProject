@@ -68,7 +68,6 @@ export function signUp(
       })
 
       console.log("SIGNUP API RESPONSE............", response)
-      console.log("yoooooo")
 
       if (!response.data.success) {
         throw new Error(response.data.message)
