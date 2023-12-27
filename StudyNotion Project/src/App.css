@@ -101,3 +101,13 @@ html,body{
     width: 372.949px;
     height: 257.054px;
   }
+
+  .input{
+    appearance: none;
+    width: 100%;
+    background-color: #585D69;
+    box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.18);
+    padding: 10px;
+    color: #F1F2FF;
+    border-radius: 0.5rem;
+  }
