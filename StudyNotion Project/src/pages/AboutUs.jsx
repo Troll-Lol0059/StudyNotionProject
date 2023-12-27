@@ -7,11 +7,12 @@ import Quote from '../components/core/aboutUs/Quote';
 import VisionStory from '../components/core/aboutUs/VisionStory';
 import Stats from '../components/core/aboutUs/Stats';
 import LearningSection from '../components/core/aboutUs/LearningSection';
-import AboutUsForm from '../components/core/aboutUs/AboutUsForm';
+import ContactUsForm from '../components/core/aboutUs/ContactUsForm';
+import Footer from "../components/common/Footer";
+
 
 
 function AboutUs() {
-
 
     return (
         <div className='text-richblack-5 w-[100vw]'>
@@ -30,7 +31,7 @@ function AboutUs() {
             </section>
 
 
-            <section className='lg:w-[100%] bg-richblack-900 flex flex-col justify-center items-center  my-44'>
+            <section className='lg:w-[100%] bg-richblack-900 flex flex-col justify-center items-center  lg:my-[15rem]'>
 
                 <Quote />
 
@@ -50,21 +51,24 @@ function AboutUs() {
                     </div>
 
                     
-                    <AboutUsForm />
+                    <ContactUsForm />
 
                 </div>
 
             </section>
 
+        <div className='lg:absolute lg:top-[65%] lg:left-[5%] lg:flex justify-center items-center gap-8'> 
+                <img src={aboutus1} alt='about us 1' />
+                <img src={aboutus2} alt='about us 2'  />
+                <img src={aboutus3} alt='about us 3' />
+        </div>
 
+        <div className='aboutUsBlob lg:absolute lg:top-[65%] lg:left-[35%]'></div>
 
-            {/* <div className='absolute lg:flex justify-center items-center gap-8 top-[-20%]'> 
-                    <img src={aboutus1} alt='about us 1 image' />
-                    <img src={aboutus2} alt='about us 2 image'  />
-                    <img src={aboutus3} alt='about us 3 image' />
-        </div> */}
+        <Footer/>
 
         </div>
+
     )
 }
 

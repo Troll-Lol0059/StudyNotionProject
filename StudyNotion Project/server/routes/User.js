@@ -4,13 +4,16 @@ const router = express.Router();
 const {signUp,login,sendOTP,changePassword} = require('../controllers/Auth');
 const {auth} = require('../middlewares/auth');
 const {resetPassword,resetPasswordToken} = require('../controllers/ResetPassword');
+const { contactUs } = require('../controllers/ContactUs');
 
 
 // create routes
+router.post('/contact-us',contactUs);
 router.post('/signUp',signUp);
 router.post('/login',login);
 router.post('/reset-password-token',resetPasswordToken);
 router.post('/reset-password',resetPassword);
+router.post('/contact-us',contactUs);
 
 // *****************   protected routes  ************************
 // Route for sending OTP to the user's email

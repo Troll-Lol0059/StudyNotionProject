@@ -102,6 +102,15 @@ html,body{
     height: 257.054px;
   }
 
+  .aboutUsBlob{
+    border-radius: 357.43px;
+    opacity: 0.74;
+    background: var(--Gradient-08, linear-gradient(118deg, #E65C00 -6.05%, #F9D423 106.11%));
+    filter: blur(34px); 
+    width: 357.43px;
+    height: 36.875px;
+  }
+
   .input{
     appearance: none;
     width: 100%;
