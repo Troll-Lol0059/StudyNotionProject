@@ -3,7 +3,7 @@ const ContactUs = require('../models/ContactUs');
 
 exports.contactUs = async(req,res) => {
     try{
-        const {firstName,lastName,email,phone,message} = req.body;
+        const {firstName,email,message} = req.body;
         // data validation
         if(!firstName || !email || !message){
             return res.status(400).json({

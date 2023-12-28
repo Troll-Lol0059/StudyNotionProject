@@ -18,19 +18,20 @@ const ContactUsForm = () => {
 
     const handleForm = async(data) => {
         // console.log(data);
-        const {firstName,lastName,email,phone,message} = data;
+        const {firstName,email,messageBox} = data;
         try{
             setLoading(true);
             const response = await apiConnector("POST",contactusEndpoint.CONTACT_US_API,
             {
-                firstName,lastName,email,phone,message
+                firstName,
+                email,
+                message:messageBox,
             }
             );
             console.log(response);
-            isSubmitSuccessful(true);
             setLoading(false);
         }catch(error){
-            console.log("Eroor",error);
+            console.log("Error while calling Contact Us API",error);
         }
     }
 
@@ -38,17 +39,17 @@ const ContactUsForm = () => {
         if (isSubmitSuccessful) {
             reset({
               email: "",
-              firstname: "",
-              lastname: "",
-              message: "",
-              phoneNo: "",
+              firstName: "",
+              lastName: "",
+              messageBox: "",
+              phone: "",
             })
-          }
+        }
     },[reset,isSubmitSuccessful] )
 
 
     return(
-        <form onSubmit={handleSubmit(handleForm)} className="flex flex-col gap-4 my-8">
+        <form onSubmit={handleSubmit(handleForm)} className="flex flex-col gap-4 mb-8">
             <div className="lg:flex justify-between w-[100%] gap-8">
                 <div className="flex flex-col lg:w-[100%]">
                     <label htmlFor="firstName">First Name: </label>
