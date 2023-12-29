@@ -24,7 +24,7 @@ function SidebarLink({link,iconName}) {
     } transition-all duration-200`}
   >
         <span className={`absolute left-0 top-0 h-full w-[0.2rem] bg-yellow-50
-             ${matchRoute(link.path)} ? 'opacity-100' : 'opacity:0' `}>
+             ${matchRoute(link.path) ? 'opacity-100' : 'opacity-0'}`}>
         </span>
 
         <div className='flex items-center gap-2'>

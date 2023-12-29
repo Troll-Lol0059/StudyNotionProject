@@ -11,7 +11,7 @@ function IconBtn({
   return (
     <button
     disabled={disabled}
-    onClick={onclick}>
+    onClick={onclick} className={customClasses} >
         {
             children ? (
                 <>

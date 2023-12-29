@@ -26,8 +26,8 @@ function Sidebar() {
 
   return (
     <div>
-        <div className='flex lg:min-w-[222px] flex-col border-r-[1px] border-richblack-700
-                h-[calc(100vh-3.5rem)]'>
+        <div className='flex lg:min-w-[120px] flex-col border-r-[1px] border-richblack-800
+                h-[calc(100vh-3.5rem)] bg-richblack-700'>
             <div className='flex flex-col'>
                     {
                         sidebarLinks.map( (link,index) => {
