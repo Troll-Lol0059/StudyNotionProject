@@ -4,11 +4,11 @@ const User = require('../models/User');
 exports.updateProfile = async(req,res) => {
     try{
         // get data
-        const {dateOfBirth="",about="",contactNumber,gender} = req.body;
+        const {dateOfBirth,about="",contactNumber,gender} = req.body;
         // get userID (as generated during signup auth middleware)
         const id = req.user.id;
         // validate data
-        if(!contactNumber || !gender || id){
+        if(!contactNumber || !gender || !dateOfBirth|| !id){
             return res.status(400).json({
                 success:false,
                 message:"All fields are required",

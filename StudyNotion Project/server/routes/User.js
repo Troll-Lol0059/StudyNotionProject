@@ -7,6 +7,7 @@ const {resetPassword,resetPasswordToken} = require('../controllers/ResetPassword
 const { contactUs } = require('../controllers/ContactUs');
 
 
+
 // create routes
 router.post('/contact-us',contactUs);
 router.post('/signUp',signUp);
@@ -20,6 +21,7 @@ router.post('/contact-us',contactUs);
 router.post("/sendotp", sendOTP)
 // route for change password
 router.post('/changePassword',auth,changePassword);
+
 
 
 
