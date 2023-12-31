@@ -1,5 +1,8 @@
 const Profile = require('../models/Profile');
 const User = require('../models/User');
+const cloudinary = require('cloudinary').v2;
+const {uploadFileToCloudinary} = require('../utilis/fileUploader');
+
 
 exports.updateProfile = async(req,res) => {
     try{
@@ -39,7 +42,6 @@ exports.updateProfile = async(req,res) => {
         })
     }
 }
-
 
 // delete Account function
 // TODO: explore -> how can we schedule this delete operation
@@ -90,3 +92,40 @@ exports.getAllUsers = async(req,res) => {
         })
     }
 }
+
+
+
+// function to check if file format is supported
+function isFileTypeSupported(type,supportedType){
+        return supportedType.includes(type);
+}
+
+
+exports.uploadProfilePic = async (req, res) => {
+    try {
+      const displayPicture = req.files.displayPicture
+      const userId = req.user.id
+      const image = await uploadFileToCloudinary(
+        displayPicture,
+        process.env.FOLDER_NAME,
+        1000,
+        1000
+      )
+      console.log(image)
+      const updatedProfile = await User.findByIdAndUpdate(
+        { _id: userId },
+        { image: image.secure_url },
+        { new: true }
+      )
+      res.send({
+        success: true,
+        message: `Image Updated successfully`,
+        data: updatedProfile,
+      })
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
+    }
+  }
