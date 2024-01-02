@@ -7,9 +7,10 @@ function IconBtn({
     disabled,
     outline=false,
     customClasses,
+    type
 }) {
   return (
-    <button
+    <button type={type}
     disabled={disabled}
     onClick={onclick} className={customClasses} >
         {
