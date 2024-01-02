@@ -1,7 +1,7 @@
 // import require modules
 const express = require('express');
 const router = express.Router();
-const {signUp,login,sendOTP,changePassword} = require('../controllers/Auth');
+const {signUp,login,sendOTP} = require('../controllers/Auth');
 const {auth} = require('../middlewares/auth');
 const {resetPassword,resetPasswordToken} = require('../controllers/ResetPassword');
 const { contactUs } = require('../controllers/ContactUs');
@@ -19,9 +19,6 @@ router.post('/contact-us',contactUs);
 // *****************   protected routes  ************************
 // Route for sending OTP to the user's email
 router.post("/sendotp", sendOTP)
-// route for change password
-router.post('/changePassword',auth,changePassword);
-
 
 
 

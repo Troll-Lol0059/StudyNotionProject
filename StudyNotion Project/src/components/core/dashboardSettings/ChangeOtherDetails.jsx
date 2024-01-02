@@ -2,14 +2,20 @@ import React from 'react'
 import IconBtn from "../../common/IconBtn";
 import { useForm } from 'react-hook-form';
 import { formatDate } from '../../../utils/dateFormatter';
+import { updateProfile } from '../../../services/operations/profileAPI';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 const genders = ["Male", "Female", "Non-Binary", "Prefer not to say", "Other"]
 
 function ChangeOtherDetails({ user }) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {token} = useSelector( (state) => state.auth );
+
     // converts -> 10 Jan 2001 to "2001-01-10"
     const date = formatDate(user?.additionalDetails?.dateOfBirth);
-    console.log(date);
 
     const {
         register,
@@ -20,6 +26,7 @@ function ChangeOtherDetails({ user }) {
     const submitProfileForm = async(data) => {
         console.log(data);
         try{
+            const response = dispatch(updateProfile(token,data));
 
         }catch(error){
             console.log("Error Occured while updating data",error);
@@ -163,7 +170,8 @@ function ChangeOtherDetails({ user }) {
             </div>
 
             <div className='flex gap-4 justify-end mt-2 mr-6'>
-                <IconBtn text={"Cancel"} customClasses={"text-richblack-100 text-base px-4 py-1 rounded-md border border-richblack-500"} />
+                <IconBtn text={"Cancel"} customClasses={"text-richblack-100 text-base px-4 py-1 rounded-md border border-richblack-500"}
+                 type={'button'} onclick={ () => navigate(-1) } />
 
                 <IconBtn type={'submit'} customClasses={"bg-yellow-50 text-richblack-900 text-base px-4 py-1 rounded-md"}
                     text={"Save"} />

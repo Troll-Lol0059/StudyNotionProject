@@ -2,6 +2,9 @@ const Profile = require('../models/Profile');
 const User = require('../models/User');
 const cloudinary = require('cloudinary').v2;
 const {uploadFileToCloudinary} = require('../utilis/fileUploader');
+const bcrypt = require('bcrypt');
+const mailSender = require('../utilis/mailSender');
+const { passwordUpdated } = require('../mail/templates/passwordUpdate');
 
 
 exports.updateProfile = async(req,res) => {
@@ -94,7 +97,6 @@ exports.getAllUsers = async(req,res) => {
 }
 
 
-
 // function to check if file format is supported
 function isFileTypeSupported(type,supportedType){
         return supportedType.includes(type);
@@ -129,3 +131,78 @@ exports.uploadProfilePic = async (req, res) => {
       })
     }
   }
+
+
+  exports.changePassword = async(req,res) => {
+    try{
+        // fetch data from req body
+        const {oldPassword,newPassword} = req.body;
+        const id = req.user.id;
+        
+        // data validation
+        if(!newPassword || !oldPassword){
+            return res.status(404).json({
+                success:false,
+                message:"Please Enter all the fields !",
+            })
+        }
+  
+        const userDetails = await User.findById(id);
+        console.log(userDetails);
+        // check if entered password and db password matches
+        const isPasswordMatch = bcrypt.compare(oldPassword, userDetails.password);
+        // console.log(oldPassword," ",userDetails.password);
+        // console.log(isPasswordMatch);
+        if(!isPasswordMatch) {
+            return res.status(400).json({
+                success:false,
+                message:"Old password entered is wrong",
+            })
+        }
+
+        // check if new password entered already exists in DB
+        if(await bcrypt.compare(newPassword,userDetails.password)){
+            return res.status(400).json({
+                success:false,
+                message:"The New Password entered is already in use, choose some other password",
+            })
+        }
+        // hash the new entered password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        const updatedDetails = await User.findByIdAndUpdate({_id:id},
+                                                            {password:hashedPassword},
+                                                            {new:true}
+                                                            );
+        console.log(updatedDetails);
+        
+        // send notification mail
+        try{
+            await mailSender(userDetails.email,
+                "Password Changed Successfully",
+                passwordUpdated(
+                    userDetails.email,
+                    `${userDetails.firstName} ${userDetails.lastName}`
+                ));
+
+        }catch(error){
+            console.log("Error occured while sending password change mail");
+            return res.status(400).json({
+                success:false,
+                message:error.message,
+            })
+        }
+        
+        return res.status(200).json({
+            success:true,
+            message:"Password has been changed successfully !",
+        })
+
+    }catch(error){
+        console.log("Error at change password function");
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        })
+    }
+}

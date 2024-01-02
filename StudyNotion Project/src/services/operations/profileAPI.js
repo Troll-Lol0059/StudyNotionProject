@@ -46,6 +46,63 @@ export function updateProfilePic(token,formData) {
       }
 }
 
+export function updateProfile(token,formData){
+  return async (dispatch) => {
+    // while API is called show loading
+    const toastId = toast.loading("Loading");
+    try{
+      // connect to API
+      const response = await apiConnector("PUT",UPDATE_PROFILE_API,
+      formData,
+      {
+        "Content-Type": "multipart/form-data",
+        Authorization:`Bearer ${token}`
+      }
+    )
+    console.log("Displaying Update Profile API response",response);
+    
+    // if API is called but not success throw error
+    if(!response.data.success){
+      throw new Error(response.data.message)
+    }
 
+    toast.success("Data Updated Successfully");
+    dispatch(setUser(response.data.data));
+    }catch(error){
+      console.log("UPDATE_DISPLAY_PICTURE_API API ERROR............", error)
+      toast.error("Could Not Update Display Picture")
+    }
+    toast.dismiss(toastId);
+  }
+}
+
+
+export function updatePassword(token,formData){
+  return async(dispatch) => {
+    const {toastId} = toast.loading("Loading...");
+    
+    try{
+      const response = await apiConnector("PUT",CHANGE_PASSWORD_API,formData,
+      {
+        "Content-Type": "multipart/form-data",
+        Authorization:`Bearer ${token}`
+      })
+      
+      console.log("Displaying Update Password API response",response);
+    
+      // if API is called but not success throw error
+      if(!response.data.success){
+        throw new Error(response.data.message)
+      }
+  
+      toast.success("Data Updated Successfully");
+      dispatch(setUser(response.data.data));
+    }catch(error){
+      console.log("Error occured while calling Update Passowrd API",error);
+      toast.error("Could Not Update the Password")
+    }
+    toast.dismiss(toastId);
+  }
+}
 
 

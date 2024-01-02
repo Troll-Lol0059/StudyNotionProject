@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import ChangeProfilePic from "../components/core/dashboardSettings/ChangeProfilePic";
 import ChangeOtherDetails from "../components/core/dashboardSettings/ChangeOtherDetails";
 import ChangePassword from "../components/core/dashboardSettings/ChangePassword";
+import DeleteAccount from "../components/core/dashboardSettings/DeleteAccount";
 
 const ProfileSettings = () => {
     const {
@@ -41,6 +42,9 @@ const ProfileSettings = () => {
 
                     {/*Password and change password div */}
                     <ChangePassword user={user} />
+
+                    {/* delete account */}
+                    <DeleteAccount />
 
                 </div>
             </div>
