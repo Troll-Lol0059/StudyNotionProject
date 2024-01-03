@@ -34,7 +34,7 @@ exports.createCategory = async(req,res) => {
     }
 }
 
-// GET ALL TAGS
+// GET ALL Categories
 exports.showAllCategories = async(req,res) => {
     try{
         const allCategories = await Category.find({},{name:true,

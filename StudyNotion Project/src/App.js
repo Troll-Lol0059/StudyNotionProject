@@ -17,9 +17,29 @@ import PrivateRoute from "./components/core/auth/PrivateRoute";
 import ProfileSettings from "./pages/ProfileSettings";
 import EnrolledCourses from "./components/core/dashboard/EnrolledCourses";
 import Cart from "./components/core/dashboard/Cart";
+import Error from "./pages/Error";
+import { useDispatch,useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getUserDetails } from "./services/operations/profileAPI";
+import { ACCOUNT_TYPE } from "./utils/constants";
+import AddCourse from "./components/core/dashboard/addCourse";
 
 
 function App() {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.profile)
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const token = JSON.parse(localStorage.getItem("token"))
+      // dispatch(getUserDetails(token, navigate))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar />
@@ -86,11 +106,44 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="dashboard/my-profile"  element={<MyProfile />} />
-          <Route path="dashboard/settings"  element={<ProfileSettings />} />
-          <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
-          <Route path="dashboard/cart" element={<Cart />} />
+        
+        {/* routes for all users */}
+        <Route path="dashboard/my-profile"  element={<MyProfile />} />
+        <Route path="dashboard/settings"  element={<ProfileSettings />} />
+
+
+        {/* Route only for Instructors */}
+        {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+            <>
+              {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
+              {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
+              <Route path="dashboard/add-course" element={<AddCourse />} />
+              {/* <Route
+                path="dashboard/edit-course/:courseId"
+                element={<EditCourse />}
+              /> */}
+            </>
+          )}
+          {/* Route only for Students */}
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="dashboard/enrolled-courses"
+                element={<EnrolledCourses />}
+              />
+              <Route path="/dashboard/cart" element={<Cart />} />
+            </>
+          )}
+
+
         </Route>
+
+
+
+
+
+        {/* 404 Page */}
+        <Route path="*" element={<Error />} />
 
       </Routes>
 

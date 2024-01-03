@@ -26,7 +26,7 @@ router.post('/deleteSubSection',auth,isInstructor,deleteSubSection);
 
 // routes for admin
 router.post('/createCategory',auth,isAdmin,createCategory);
-router.get('/showAllCategories',auth,isAdmin,showAllCategories);
+router.get('/showAllCategories',showAllCategories);
 router.get('/showAllCourses',auth,isAdmin,showAllCourses);
 router.get('/getCourse',auth,isAdmin,getCourseDetails);
 
