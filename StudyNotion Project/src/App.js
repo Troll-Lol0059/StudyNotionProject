@@ -15,6 +15,8 @@ import MyProfile from "./components/core/dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/core/auth/PrivateRoute";
 import ProfileSettings from "./pages/ProfileSettings";
+import EnrolledCourses from "./components/core/dashboard/EnrolledCourses";
+import Cart from "./components/core/dashboard/Cart";
 
 
 function App() {
@@ -86,6 +88,8 @@ function App() {
         >
           <Route path="dashboard/my-profile"  element={<MyProfile />} />
           <Route path="dashboard/settings"  element={<ProfileSettings />} />
+          <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
+          <Route path="dashboard/cart" element={<Cart />} />
         </Route>
 
       </Routes>
