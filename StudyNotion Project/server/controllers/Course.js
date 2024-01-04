@@ -9,23 +9,48 @@ const SubSection = require('../models/SubSection');
 exports.createCourse = async (req, res) => {
     try {
         // fetch data
-        const { courseName, courseDescription, whatYouWillLearn, price, category } = req.body;
+        const { courseName, 
+            courseDescription, 
+            whatYouWillLearn, 
+            price, 
+            category,
+            tag: _tag,
+            instructions: _instructions,
+            status } = req.body;
         // get thumbnail
-        const thumbnail = req.files.thumbnailImage;
+        const thumbnail = req.files.thumbnail;
 
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !category) {
+        // Convert the tag and instructions from stringified Array to Array
+        const tag = JSON.parse(_tag)
+        const instructions = JSON.parse(_instructions)
+
+        if (
+            !courseName ||
+            !courseDescription ||
+            !whatYouWillLearn ||
+            !price ||
+            !tag.length ||
+            !thumbnail ||
+            !category ||
+            !instructions.length
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
             });
         }
 
+        if (!status || status === undefined) {
+            status = "Draft"
+        }
+
         // check for instructor
         // why fetch instructor details if authorization is done already ?
         // because while creating course enrty in DB we need instructor's id
         const userId = req.user.id;
-        const instructorDetails = await User.findById({_id:userId });
-        console.log("Instructor Details", instructorDetails);
+        const instructorDetails = await User.findById(userId, {
+            accountType: "Instructor",
+          })
 
         if (!instructorDetails) {
             return res.status(404).json({
@@ -35,8 +60,8 @@ exports.createCourse = async (req, res) => {
         }
 
         // check given category is valid or not
-        const cateogryDetails = await Category.findById(category);
-        if (!cateogryDetails) {
+        const categoryDetails = await Category.findById(category);
+        if (!categoryDetails) {
             return res.status(404).json({
                 success: false,
                 messgae: "Category Details not found",
@@ -51,10 +76,13 @@ exports.createCourse = async (req, res) => {
             courseName,
             courseDescription,
             instructor: instructorDetails._id,
-            whatYouWillLearn,
+            whatYouWillLearn: whatYouWillLearn,
             price,
-            category:cateogryDetails._id,
+            tag,
+            category: categoryDetails._id,
             thumbnail: thumbnailImage.secure_url,
+            status: status,
+            instructions,
         });
 
         // add the new course to the user schema of instructor
