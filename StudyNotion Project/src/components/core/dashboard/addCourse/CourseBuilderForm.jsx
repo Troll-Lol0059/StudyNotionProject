@@ -8,6 +8,7 @@ import IconBtn from '../../../common/IconBtn';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { setCourse, setEditCourse, setStep } from '../../../../slices/courseSlice';
 import toast from 'react-hot-toast';
+import NestedView from './NestedView';
 
 
 const CourseBuilderForm = () => {
@@ -18,10 +19,11 @@ const CourseBuilderForm = () => {
     const { token } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false);
 
+    console.log(course);
     // CREATES / EDITS THE SECTION
     const submitHandler = async(data) => {
         setLoading(true);
-        let result;
+        let result = null;
 
         if(editSectionName){
             // editing section
@@ -35,12 +37,13 @@ const CourseBuilderForm = () => {
             result = await createSection({
                 sectionName:data.sectionName,
                 courseId:course._id,
-            },token)
+            },token);
         }
 
         // update values
         if(result){
-            dispatch(setCourse(result));
+            // console.log("Logging result",result);
+            dispatch(setCourse(result.data));
             setEditSectionName(null);
             setValue("");
         }
@@ -82,11 +85,9 @@ const CourseBuilderForm = () => {
     }
 
     return (
-        <>
-            <form className='bg-richblack-800 border border-richblack-700 px-6 py-4 flex flex-col gap-4 rounded-md'
-                onSubmit={handleSubmit(submitHandler)}>
-                <div className='text-richblack-5 text-[24px] font-semibold'>Course Builder</div>
-
+        <div className='bg-richblack-800 border border-richblack-600 px-6 py-4 gap-4 rounded-md'>
+            <div className='text-richblack-5 text-[24px] font-semibold'>Course Builder</div>
+                <form onSubmit={handleSubmit(submitHandler)} className='bg-richblack-800 px-6 py-4 flex flex-col gap-4 rounded-md' >
                 <input type='text' className='form-style' name='sectionName'
                     placeholder='Add a section to build your course'
                     {...register('sectionName', { required: true })}
@@ -122,9 +123,7 @@ const CourseBuilderForm = () => {
 
             {
                 course.courseContent.length > 0 && (
-                    <div>
-
-                    </div>
+                    <NestedView setEditSectionName={setEditSectionName} />
                 )
             }
 
@@ -149,8 +148,7 @@ const CourseBuilderForm = () => {
                 />
             </div>
 
-        </>
-
+        </div>
 
     )
 }

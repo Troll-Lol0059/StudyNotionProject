@@ -12,8 +12,8 @@ const {createCategory,showAllCategories,categoryPageDetails} = require('../contr
 // ***** rourtes related to course actions *****
 router.post('/createCourse',auth,isInstructor,createCourse);
 
-// ***** rourtes related to course section *****
-router.post('/createSection',auth,isInstructor,createSection);
+// ***** routes related to course section *****
+router.post('/addSection',auth,isInstructor,createSection);
 router.post('/updateSection',auth,isInstructor,updateSection);
 router.post('/deleteSection',auth,isInstructor,deleteSection);
 
