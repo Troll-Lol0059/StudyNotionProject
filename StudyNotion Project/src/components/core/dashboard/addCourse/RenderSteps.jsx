@@ -2,9 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { FaCheck } from 'react-icons/fa';
 import CourseInformationForm from './CourseInformationForm ';
+import CourseBuilderForm from './CourseBuilderForm';
 
 function RenderSteps() {
     const { step } = useSelector((state) => state.course);
+    console.log(step);
 
     const steps = [
         {
@@ -78,7 +80,7 @@ function RenderSteps() {
             </div>
             {/* Render specific component based on current step */}
             {step === 1 && <CourseInformationForm />}
-            {/* {step === 2 && <CourseBuilderForm />} */}
+            {step === 2 && <CourseBuilderForm />}
             {/* {step === 3 && <PublishCourse />} */}
         </>
     )

@@ -121,7 +121,7 @@ function CourseInformationForm() {
         setLoading(false);
         if (result) {
           // if result succes goto step 2
-          setStep(2);
+          dispatch(setStep(2));
           // set course details as updated details
           dispatch(setCourse(result));
         }
@@ -147,7 +147,7 @@ function CourseInformationForm() {
     setLoading(true);
     const result = await addCourseDetails(formData,token);
     if(result){
-      setStep(2);
+      dispatch(setStep(2));
       dispatch(setCourse(result));
     }
     setLoading(false);
