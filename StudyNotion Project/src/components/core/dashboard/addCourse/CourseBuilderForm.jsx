@@ -3,25 +3,48 @@ import { IoAddCircle, IoEditCircle } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSection } from '../../../../services/operations/courseDetailsAPI';
+import { createSection, updateSection } from '../../../../services/operations/courseDetailsAPI';
 import IconBtn from '../../../common/IconBtn';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
-import { setEditCourse, setStep } from '../../../../slices/courseSlice';
+import { setCourse, setEditCourse, setStep } from '../../../../slices/courseSlice';
+import toast from 'react-hot-toast';
 
 
 const CourseBuilderForm = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    const [editSectionName, setEditSectionName] = useState(true);
+    const [editSectionName, setEditSectionName] = useState(false);
     const { course } = useSelector((state) => state.course);
     const { token } = useSelector((state) => state.auth);
-    const [loading, setLoading] = useState(false)
-    const submitHandler = async (data) => {
-        // console.log(data);
-        // setLoading(true);
-        // const response = await createSection(data,token);
-        // console.log(response);
-        // setLoading(false);
+    const [loading, setLoading] = useState(false);
+
+    // CREATES / EDITS THE SECTION
+    const submitHandler = async(data) => {
+        setLoading(true);
+        let result;
+
+        if(editSectionName){
+            // editing section
+            result = await updateSection({
+                sectionName:data.sectionName,
+                sectionId: editSectionName,
+                courseId:course._id,
+            },token)
+        }
+        else{
+            result = await createSection({
+                sectionName:data.sectionName,
+                courseId:course._id,
+            },token)
+        }
+
+        // update values
+        if(result){
+            dispatch(setCourse(result));
+            setEditSectionName(null);
+            setValue("");
+        }
+        setLoading(false);
     }
 
     const cancelEdit = () => {
@@ -30,13 +53,32 @@ const CourseBuilderForm = () => {
     }
 
     const handleNext = () => {
-        dispatch(setStep(3));
+        if(course.courseContent.length === 0){
+            toast.error("Please Add atleast One Section");
+            return;
+        }
+        if(course.courseContent.some( (section) => section.subSection.length === 0 )){
+            toast.error("Please add atleast One Sub-Section to proceed");
+            return;
+        }
 
+        dispatch(setStep(3));
     }
 
     const handleBack = () => {
         dispatch(setStep(1));
         dispatch(setEditCourse(true));
+    }
+
+    // doubt in logic
+    const handleChangeEditSectionName = (sectionId,sectionName) => {
+        if(editSectionName === sectionId){
+            cancelEdit();
+            return;
+        }
+        
+        setEditSectionName(sectionId);
+        setValue("sectionName",sectionName);
     }
 
     return (
