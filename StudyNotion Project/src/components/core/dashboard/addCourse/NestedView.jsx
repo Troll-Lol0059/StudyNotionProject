@@ -5,7 +5,7 @@ import { MdEdit,MdDelete } from "react-icons/md";
 import { FaCaretDown } from "react-icons/fa";
 
 
-function NestedView({ setEditSectionName }) {
+function NestedView({ handleChangeEditSectionName }) {
     const { course } = useSelector((state) => state.course);
     const { token } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -27,12 +27,15 @@ function NestedView({ setEditSectionName }) {
                                 </div>
 
                                 <div className='flex items-center justify-between text-richblack-50 text-base gap-3 py-2'>
-                                    <div><MdEdit /></div>
-                                    <div><MdDelete /></div>
-                                    <div><FaCaretDown /></div>
+                                    <button 
+                                    onClick={handleChangeEditSectionName}>
+                                        <MdEdit />
+                                    </button>
+                                    <button><MdDelete /></button>
+                                    <button><FaCaretDown /></button>
                                 </div>
 
-                                Add Lectuire
+                                Add Lecture
                             </summary>
                         </details>
                     ))

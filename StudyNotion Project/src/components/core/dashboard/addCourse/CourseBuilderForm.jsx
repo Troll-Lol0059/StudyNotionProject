@@ -19,7 +19,7 @@ const CourseBuilderForm = () => {
     const { token } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false);
 
-    console.log(course);
+    
     // CREATES / EDITS THE SECTION
     const submitHandler = async(data) => {
         setLoading(true);
@@ -123,7 +123,7 @@ const CourseBuilderForm = () => {
 
             {
                 course.courseContent.length > 0 && (
-                    <NestedView setEditSectionName={setEditSectionName} />
+                    <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
                 )
             }
 
