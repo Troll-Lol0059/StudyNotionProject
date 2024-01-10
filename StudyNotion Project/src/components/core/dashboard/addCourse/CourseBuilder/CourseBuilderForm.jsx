@@ -3,12 +3,12 @@ import { IoAddCircle, IoEditCircle } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSection, updateSection } from '../../../../services/operations/courseDetailsAPI';
-import IconBtn from '../../../common/IconBtn';
+import { createSection, updateSection } from '../../../../../services/operations/courseDetailsAPI';
+import IconBtn from '../../../../common/IconBtn';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
-import { setCourse, setEditCourse, setStep } from '../../../../slices/courseSlice';
+import { setCourse, setEditCourse, setStep } from '../../../../../slices/courseSlice';
 import toast from 'react-hot-toast';
-import NestedView from './NestedView';
+import NestedView from '../CourseBuilder/NestedView';
 
 
 const CourseBuilderForm = () => {
