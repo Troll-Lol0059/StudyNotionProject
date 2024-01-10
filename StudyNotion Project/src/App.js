@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserDetails } from "./services/operations/profileAPI";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import AddCourse from './components/core/dashboard/AddCourse';
+import AddCourse from './components/core/dashboard/addCourse/index';
 
 
 function App() {

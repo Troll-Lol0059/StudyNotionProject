@@ -7,6 +7,7 @@ import {AiOutlinePlus} from 'react-icons/ai';
 import SubSectionModal from './SubSectionModal';
 
 
+
 function NestedView({ handleChangeEditSectionName }) {
     const { course } = useSelector((state) => state.course);
     const { token } = useSelector((state) => state.auth);
@@ -16,12 +17,30 @@ function NestedView({ handleChangeEditSectionName }) {
     const [editSubSection, setEditSubSection] = useState(null);
     const [confirmationModal, setConfirmationModal] = useState(null);
 
-    const handleDeleteSection = (sectionId) => {
+    const handleDeleteSection = async(sectionId) => {
+        const result = await deleteSection({
+            sectionId,
+            courseId:course._id,
+            token,
+        })
 
+        if(result){
+            dispatch(setCourse(result));
+        }
+        setConfirmationModal(null);
     }
 
-    const handleDeleteSubSection = (subSectionId,sectionId) => {
-
+    const handleDeleteSubSection = async(subSectionId,sectionId) => {
+        const result = await deleteSubSection({
+            subSectionId,
+            sectionId,
+            token,
+        })
+        
+        if(result){
+            dispatch(setCourse(result));
+        }
+        setConfirmationModal(null);
     }
 
     return (
