@@ -61,7 +61,7 @@ function CourseInformationForm() {
       currentValues.courseTitle !== course.courseName ||
       currentValues.courseShortDesc !== course.courseDescription ||
       currentValues.price !== course.price ||
-      currentValues.courseTags !== course.tag ||
+      currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
       currentValues.courseRequirements.toString() !== course.instructions.toString() ||
@@ -75,7 +75,7 @@ function CourseInformationForm() {
 
   // handle next button click
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     if (editCourse) {
       if (isFormUpdated) {
         // if form is edited check which field is edited
@@ -154,7 +154,7 @@ function CourseInformationForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className={`space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6 ${editCourse ? 'w-[55%] mx-auto' : ""} `}>
       {/* div for course title */}
       <div className="flex flex-col space-y-2">
         <label htmlFor='courseTitle' className="text-sm text-richblack-5">Course Title
@@ -266,15 +266,15 @@ function CourseInformationForm() {
             <button
               onClick={() => dispatch(setStep(2))}
               disabled={loading}
-              className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 py-[8px] px-[20px] font-semibold text-richblack-900`}
+              className={`flex cursor-pointer items-center gap-x-2 rounded-md bg-richblack-300 px-[20px] font-semibold text-richblack-900`}
             >
-              Continue Wihout Saving
+              Continue Without Saving
             </button>
           )}
           <IconBtn
             disabled={loading}
             text={!editCourse ? "Next" : "Save Changes"}
-            customClasses={"flex items-center bg-yellow-50 rounded-md px-4 py-2 mt-12"}
+            customClasses={"icon-btn"}
           >
             <MdNavigateNext />
           </IconBtn>

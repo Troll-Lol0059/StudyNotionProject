@@ -8,8 +8,8 @@ import PublishCourse from './CourseBuilder/PublishCourse';
 
 function RenderSteps() {
     const { step } = useSelector((state) => state.course);
-    console.log(step);
-
+    const { editCourse } = useSelector((state) => state.course);
+   
     const steps = [
         {
             id: 1,
@@ -60,11 +60,11 @@ function RenderSteps() {
                 ))}
             </div>
 
-            <div className="relative mb-16 flex w-full select-none justify-between px-4">
+            <div className={`${editCourse ? 'px-24' : 'px-4'} relative mb-16 flex w-full select-none justify-between`}>
                 {steps.map((item) => (
                     <>
                         <div
-                            className="flex min-w-[130px] flex-col items-center gap-y-2"
+                            className='flex min-w-[130px] flex-col items-center gap-y-2'
                             key={item.id}
                         >
 

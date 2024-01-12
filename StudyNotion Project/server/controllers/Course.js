@@ -4,6 +4,8 @@ const Category = require('../models/Category');
 const { uploadFileToCloudinary } = require('../utilis/fileUploader');
 const Section = require('../models/Section');
 const SubSection = require('../models/SubSection');
+const CourseProgress = require('../models/CourseProgress');
+const { convertSecondsToDuration } = require("../utilis/secToDuration")
 
 // create course
 exports.createCourse = async (req, res) => {
@@ -133,7 +135,7 @@ exports.getAllCourses = async (req, res) => {
           price: true,
           thumbnail: true,
           instructor: true,
-          ratingAndReviews: true,
+          ratingsAndReviews: true,
           studentsEnrolled: true,
         }
       )
@@ -228,12 +230,16 @@ exports.editCourse = async (req, res) => {
       }
   
       // Update only the fields that are present in the request body
+      console.log(updates);
       for (const key in updates) {
+        console.log("key: ",key);
         if (updates.hasOwnProperty(key)) {
           if (key === "tag" || key === "instructions") {
             course[key] = JSON.parse(updates[key])
           } else {
             course[key] = updates[key]
+            console.log("course key: ",course[key]);
+            console.log("update key: ",updates[key]);
           }
         }
       }
@@ -287,7 +293,7 @@ exports.editCourse = async (req, res) => {
           },
         })
         .populate("category")
-        .populate("ratingAndReviews")
+        .populate("ratingsAndReviews")
         .populate({
           path: "courseContent",
           populate: {
@@ -335,6 +341,7 @@ exports.editCourse = async (req, res) => {
       })
     }
   }
+
   exports.getFullCourseDetails = async (req, res) => {
     try {
       const { courseId } = req.body
@@ -349,7 +356,7 @@ exports.editCourse = async (req, res) => {
           },
         })
         .populate("category")
-        .populate("ratingAndReviews")
+        .populate("ratingsAndReviews")
         .populate({
           path: "courseContent",
           populate: {
@@ -444,7 +451,7 @@ exports.editCourse = async (req, res) => {
       }
   
       // Unenroll students from the course
-      const studentsEnrolled = course.studentsEnroled
+      const studentsEnrolled = course.studentsEnrolled
       for (const studentId of studentsEnrolled) {
         await User.findByIdAndUpdate(studentId, {
           $pull: { courses: courseId },

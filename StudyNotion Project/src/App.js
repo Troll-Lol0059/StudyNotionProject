@@ -23,7 +23,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserDetails } from "./services/operations/profileAPI";
 import { ACCOUNT_TYPE } from "./utils/constants";
-import AddCourse from './components/core/dashboard/AddCourse/index'
+import AddCourse from './components/core/dashboard/addCourse/index'
+import MyCourses from './components/core/dashboard/MyCourses';
+import { EditCourse } from "./components/core/dashboard/EditCourse";
 
 
 function App() {
@@ -116,12 +118,12 @@ function App() {
         {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
               {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
-              {/* <Route path="dashboard/my-courses" element={<MyCourses />} /> */}
+              <Route path="dashboard/my-courses" element={<MyCourses />} />
               <Route path="dashboard/add-course" element={<AddCourse />} />
-              {/* <Route
+              <Route
                 path="dashboard/edit-course/:courseId"
                 element={<EditCourse />}
-              /> */}
+              />
             </>
           )}
           {/* Route only for Students */}

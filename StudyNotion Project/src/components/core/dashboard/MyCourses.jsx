@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchInstructorCourses } from '../../../services/operations/courseDetailsAPI'
 import IconBtn from '../../common/IconBtn'
 import CoursesTable from './InstructorCourses/CoursesTable'
+import { IoIosAddCircle } from "react-icons/io";
 
 const MyCourses = () => {
 
@@ -19,18 +20,23 @@ const MyCourses = () => {
             if (result) {
                 setCourses(result);
             }
-            fetchCourses();
         }
+        fetchCourses();
     }, [])
 
     return (
-        <div>
-            <div>
-                <h1>My Courses</h1>
-                <IconBtn
-                    text={"Add Course"}
-                    onclick={() => navigate('/dashboard/add-course')}
-                />
+        <div className="mr-20 p-8">
+            <div className="flex justify-between">
+                <h1 className="text-richblack-5 text-3xl font-[500]">My Courses</h1>
+
+                <div>
+                    <IconBtn
+                        children={<IoIosAddCircle />}
+                        text={"Add Course"}
+                        onclick={() => navigate('/dashboard/add-course')}
+                        customClasses={'flex flex-row-reverse icon-btn'}
+                    />
+                </div>
             </div>
 
             {courses && <CoursesTable courses={courses} setCourses={setCourses} />}

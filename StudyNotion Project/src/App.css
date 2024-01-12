@@ -133,6 +133,10 @@ html,body{
     @apply -mt-1 text-[12px] text-yellow-100;
   }
 
+  .icon-btn {
+    @apply flex items-center gap-2 text-yellow-50 text-base font-[500] border border-yellow-50 rounded-md px-4 py-2;
+  }
+
   
 
 /* 

@@ -53,19 +53,20 @@ const PublishCourse = () => {
 
     const goToCourses = () => {
         dispatch(resetCourseState());
-        // navigate('/dashboard/my-courses');
+        navigate('/dashboard/my-courses');
     }
 
     return (
-        <div className="rounded-md border-[1px] bg-richblack-800 p-6 border-richblack-700">
-            <p>Publish Course</p>
+        <div className="rounded-md border-[1px] bg-richblack-800 p-6 border-richblack-700 flex flex-col gap-y-2 lg:w-[90%] mx-auto">
+            <p className="text-richblack-5 text-[24px] font-[600]">Publish Course</p>
 
             <form onSubmit={handleSubmit(submitHandler)}>
                 <div>
-                    <label htmlFor="public">
+                    <label htmlFor="public" className="lable-style">
                         <input
                             type="checkbox"
                             id="public"
+                            className="mr-4 form-style"
                             {...register('public', { required: true })}
                         />
 
@@ -76,14 +77,14 @@ const PublishCourse = () => {
                     <button disabled={loading}
                     type="button"
                     onClick={goBack}
-                    className="bg-richblack-300 px-4 py-1 rounded-md"
+                    className="bg-richblack-300 px-6 py-1 rounded-md"
                     >
                         Back
                     </button>
 
                     <IconBtn disabled={loading}
                         text={"Save Changes"}
-                        customClasses={"bg-yellow-50 px-2 py-1 rounded-md"}
+                        customClasses={"icon-btn"}
                     />
                 </div>
             </form>

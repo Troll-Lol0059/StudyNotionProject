@@ -128,6 +128,7 @@ export default function CourseBuilderForm() {
             disabled={loading}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             outline={true}
+            customClasses={"flex gap-2 text-yellow-50 text-base font-[500] border border-yellow-50 rounded-md px-4 py-2"}
           >
             <IoAddCircleOutline size={20} className="text-yellow-50" />
           </IconBtn>
@@ -154,7 +155,7 @@ export default function CourseBuilderForm() {
         >
           Back
         </button>
-        <IconBtn disabled={loading} text="Next" onclick={goToNext}>
+        <IconBtn disabled={loading} text="Next" onclick={goToNext} customClasses={"icon-btn"}>
           <MdNavigateNext />
         </IconBtn>
       </div>
