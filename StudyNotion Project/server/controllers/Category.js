@@ -1,5 +1,9 @@
 const Category = require('../models/Category');
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
+}
+
 // CREATE A COURSE category
 exports.createCategory = async(req,res) => {
     try{
@@ -21,8 +25,9 @@ exports.createCategory = async(req,res) => {
 
         // return response
         return res.status(200).json({
-            success:success,
+            success:true,
             message:"Category created Successfully",
+            data:categoryDetails,
         })
 
     }catch(error){
@@ -54,45 +59,81 @@ exports.showAllCategories = async(req,res) => {
 }
 
 // category page details 
-exports.categoryPageDetails = async(req,res) => {
-    try{
-        // get category id
-        const {categoryId} = req.body;
-        // get courses for specified course id
-        const selectedCategory = await Category.findById(categoryId)
-                                .populate("courses")
-                                .exec();
-        // validation
-        if(!selectedCategory){
-            return res.status(404).json({
-                success:false,
-                message:"Data not found",
-            });
-        }
-        // get course for different categories
-        const differentCategories = await Category.find(
-            {
-            // aisi category ka data laake do jiski id iss category ke equal nhi hai
-            _id:{ne:categoryId},
-            })
-            .populate("courses")
-            .exec();
-        // get top selling courses
+exports.categoryPageDetails = async (req, res) => {
+  try {
+    const { categoryId } = req.body
 
-        // return response
-        return res.status(200).json({
-            success:true,
-            data:{
-                selectedCategory,
-                differentCategories,
-            },
-            message:"Additional course suggestions added"
-        })
-    }catch(error){
-        console.log("Error occured at categoryPageDetails");
-        return res.status(500).json({
-            success:false,
-            message:error.message,
-        })
+    // Get courses for the specified category
+    const selectedCategory = await Category.findById(categoryId)
+    .populate({
+      path: "courses",
+      match: { status: "Published" },
+      populate:{
+        path:'instructor',
+      }
+    })
+    .exec()
+
+    // Handle the case when the category is not found
+    if (!selectedCategory) {
+      console.log("Category not found.")
+      return res
+        .status(404)
+        .json({ success: false, message: "Category not found" })
     }
+    // Handle the case when there are no courses
+    if (selectedCategory.courses.length === 0) {
+      console.log("No courses found for the selected category.")
+      return res.status(404).json({
+        success: false,
+        message: "No courses found for the selected category.",
+      })
+    }
+
+    // Get courses for other categories
+    const categoriesExceptSelected = await Category.find({
+      _id: { $ne: categoryId },
+    })
+    let differentCategory = await Category.findOne(
+      categoriesExceptSelected[getRandomInt(categoriesExceptSelected.length)]
+        ._id
+    )
+      .populate({
+        path: "courses",
+        match: { status: "Published" },
+      })
+      .exec()
+    console.log()
+    // Get top-selling courses across all categories
+    const allCategories = await Category.find()
+      .populate({
+        path: "courses",
+        match: { status: "Published" },
+        populate:{
+          path:'instructor',
+        }
+      })
+      .exec()
+    const allCourses = allCategories.flatMap((category) => category.courses)
+    const mostSellingCourses = allCourses
+      .sort((a, b) => b.sold - a.sold)
+      .slice(0, 10)
+
+    res.status(200).json({
+      success: true,
+      data: {
+        selectedCategory,
+        differentCategory,
+        mostSellingCourses,
+      },
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error.message,
+    })
+  }
 }
+
+  

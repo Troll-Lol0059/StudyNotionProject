@@ -24,14 +24,13 @@ const Navbar = () => {
     const fetchSublinks = async() => {
         try{
             const result = await apiConnector("GET", categories.CATEGORIES_API);
-            console.log("Printing Sublinks result:" , result);
-            setSubLinks(result.data.data);
+            // console.log("Printing Sublinks result:" , result?.data?.data);
+            setSubLinks(result?.data?.data);
         }
         catch(error) {
             console.log("Could not fetch the category list");
         }
     }
-
 
     useEffect( () => {
         fetchSublinks();
@@ -58,27 +57,28 @@ const Navbar = () => {
                  <li key={index}>
                     {
                         link.title === "Catalog" ? (
-                            <div className='relative flex items-center gap-2 group'>
+                            <div className='relative flex items-center gap-2 group cursor-pointer'>
                                 <p>{link.title}</p>
                                 <IoIosArrowDropdownCircle/>
 
                                 <div className='invisible absolute left-[50%]
-                                    translate-x-[-50%] translate-y-[80%]
-                                 top-[50%]
-                                flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900
+                                    translate-x-[-50%] translate-y-[65%]
+                                    flex flex-col rounded-md bg-richblack-5 p-4 text-richblack-900
                                 opacity-0 transition-all duration-200 group-hover:visible
-                                group-hover:opacity-100 lg:w-[300px]'>
+                                group-hover:opacity-100 lg:w-[300px] z-[1000]'>
 
                                 <div className='absolute left-[50%] top-0
                                 translate-x-[80%]
-                                translate-y-[-45%] h-6 w-6 rotate-45 rounded bg-richblack-5'>
+                                translate-y-[-45%] h-6 w-6 rotate-45 rounded bg-richblack-5 z-[1000]'>
                                 </div>
 
                                 {
-                                    subLinks.length ? (
+                                    subLinks?.length >= 0 ? 
+                                    (
                                             subLinks.map( (subLink, index) => (
-                                                <Link to={`${subLink.link}`} key={index}>
-                                                    <p>{subLink.title}</p>
+                                                <Link to={`catalog/${subLink.name.split(' ').join('-').toLowerCase()}`} 
+                                                    key={index}>
+                                                    <p>{subLink.name}</p>
                                                 </Link>
                                             ) )
                                     ) : (<div></div>)
