@@ -4,7 +4,7 @@ import RenderCartCourses from "./RenderCartCourses";
 import RenderTotalAmount from "./RenderTotalAmount";
 
 export default function Cart(){
-    const {total,totalItems} = useSelector( (state) => state.auth )
+    const {total,totalItems} = useSelector( (state) => state.cart)
     
         
     return(
