@@ -18,7 +18,7 @@ import ProfileSettings from "./pages/ProfileSettings";
 import EnrolledCourses from "./components/core/dashboard/EnrolledCourses";
 import Cart from "./components/core/dashboard/Cart";
 import Error from "./pages/Error";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { getUserDetails } from "./services/operations/profileAPI";
@@ -28,6 +28,8 @@ import MyCourses from './components/core/dashboard/MyCourses';
 import { EditCourse } from "./components/core/dashboard/EditCourse";
 import Catalog from "./pages/Catalog";
 import CourseDetails from "./pages/CourseDetails";
+import ViewCourse from './pages/ViewCourse';
+import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 
 
 function App() {
@@ -51,7 +53,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/catalog/:catalogName" element={<Catalog />} />
         <Route path="/courses/:courseId" element={<CourseDetails />} />
-        
+
 
         <Route
           path="signup"
@@ -96,13 +98,13 @@ function App() {
         <Route
           path="/about"
           element={
-              <AboutUs />
+            <AboutUs />
           }
         />
         <Route
           path="/contact"
           element={
-              <ContactUs />
+            <ContactUs />
           }
         />
 
@@ -114,14 +116,14 @@ function App() {
             </PrivateRoute>
           }
         >
-        
-        {/* routes for all users */}
-        <Route path="dashboard/my-profile"  element={<MyProfile />} />
-        <Route path="dashboard/settings"  element={<ProfileSettings />} />
+
+          {/* routes for all users */}
+          <Route path="dashboard/my-profile" element={<MyProfile />} />
+          <Route path="dashboard/settings" element={<ProfileSettings />} />
 
 
-        {/* Route only for Instructors */}
-        {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
+          {/* Route only for Instructors */}
+          {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
               {/* <Route path="dashboard/instructor" element={<Instructor />} /> */}
               <Route path="dashboard/my-courses" element={<MyCourses />} />
@@ -132,6 +134,7 @@ function App() {
               />
             </>
           )}
+
           {/* Route only for Students */}
           {user?.accountType === ACCOUNT_TYPE.STUDENT && (
             <>
@@ -146,6 +149,23 @@ function App() {
 
         </Route>
 
+        {/* For the watching course lectures */}
+        <Route
+          element={
+            <PrivateRoute>
+              <ViewCourse />
+            </PrivateRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
+              />
+            </>
+          )}
+        </Route>
 
 
         {/* 404 Page */}

@@ -5,6 +5,9 @@ const {uploadFileToCloudinary} = require('../utilis/fileUploader');
 const bcrypt = require('bcrypt');
 const mailSender = require('../utilis/mailSender');
 const { passwordUpdated } = require('../mail/templates/passwordUpdate');
+const { convertSecondsToDuration } = require("../utilis/secToDuration")
+const Course = require('../models/Course');
+const CourseProgress = require('../models/CourseProgress');
 
 
 exports.updateProfile = async(req,res) => {

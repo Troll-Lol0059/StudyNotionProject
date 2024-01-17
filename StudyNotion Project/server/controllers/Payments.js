@@ -2,7 +2,7 @@ const {instance} = require('../config/razorpay');
 const Course = require('../models/Course');
 const User = require('../models/User');
 const mailSender = require('../utilis/mailSender');
-const {courseEnrollmentEmai, courseEnrollmentEmail} = require('../mail/templates/courseEnrollmentEmail');
+const {courseEnrollmentEmail} = require('../mail/templates/courseEnrollmentEmail');
 const {paymentSuccessEmail} = require('../mail/templates/paymentSuccessEmail');
 const mongoose = require('mongoose');
 const crypto = require('crypto')
@@ -72,44 +72,8 @@ exports.capturePayment = async(req,res) => {
     }
 }
 
-// verify payment
-exports.verifyPayment = async(req,res) => {
-    const razorpay_order_id = req.body?.razorpay_order_id;
-    const razorpay_payment_id = req.body?.razorpay_payment_id;
-    const razorpay_signature = req.body?.razorpay_signature;
-    const courses = req.body?.courses;
-    const userId = req.user.id;
-
-    if(!razorpay_order_id || !razorpay_payment_id ||
-        razorpay_signature || !courses || !userId){
-        res.status(200).json({
-            success:false,
-            message:"Payment Failed",
-        })  
-    }
-
-    let body = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSignature = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET)
-                                .update(body.toString())
-                                .digest("hex");
-            
-        if(expectedSignature === razorpay_signature){
-            // enroll student
-            await enrolledStudents(courses,userId,res);
-
-            return res.status(200).json({
-                success:true,
-                message:"Payment Verified",
-            })
-    }
-    return res.status(400).json({
-        success:false,
-        message:"Payment Failed",
-    })
-}
-
-exports.enrolledStudents = async(courses,userId,res) => {
-    if(!courses || userId){
+const enrollStudents = async(courses,userId,res) => {
+    if(!courses || !userId){
         return res.status(400).json({
             success:false,
             message:"Please provide data for courses or UserId",
@@ -118,7 +82,7 @@ exports.enrolledStudents = async(courses,userId,res) => {
 
     for(const courseId of courses){
         try{
-                    // find the course and enrol the student in it
+        // find the course and enrol the student in it
         const enrolledCourse = await Course.findOneAndUpdate(
             {_id:courseId},
             {
@@ -158,6 +122,42 @@ exports.enrolledStudents = async(courses,userId,res) => {
             })
         }
     }
+}
+
+// verify payment
+exports.verifyPayment = async(req,res) => {
+    const razorpay_order_id = req.body?.razorpay_order_id;
+    const razorpay_payment_id = req.body?.razorpay_payment_id;
+    const razorpay_signature = req.body?.razorpay_signature;
+    const courses = req.body?.courses;
+    const userId = req.user.id;
+
+    if(!razorpay_order_id || !razorpay_payment_id ||
+        !razorpay_signature || !courses || !userId){
+        res.status(200).json({
+            success:false,
+            message:"Payment Failed",
+        })  
+    }
+
+    let body = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto.createHmac("sha256",process.env.RAZORPAY_SECRET)
+                                .update(body.toString())
+                                .digest("hex");
+            
+        if(expectedSignature === razorpay_signature){
+            // enroll student
+            await enrollStudents(courses,userId,res);
+
+            return res.status(200).json({
+                success:true,
+                message:"Payment Verified",
+            })
+    }
+    return res.status(400).json({
+        success:false,
+        message:"Payment Failed",
+    })
 }
 
 exports.sendPaymentSuccessEmail = async(req,res) => {
