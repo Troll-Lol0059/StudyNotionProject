@@ -14,6 +14,7 @@ const EnrolledCourses = () => {
         try {
             const res = await getUserEnrolledCourses(token) // Getting all the published and the drafted courses
             setEnrolledCourses(res);
+            console.log(res);
         } catch (error) {
             console.log("Unable to fetch Courses", error);
         }

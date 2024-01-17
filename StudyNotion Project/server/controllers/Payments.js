@@ -5,7 +5,8 @@ const mailSender = require('../utilis/mailSender');
 const {courseEnrollmentEmail} = require('../mail/templates/courseEnrollmentEmail');
 const {paymentSuccessEmail} = require('../mail/templates/paymentSuccessEmail');
 const mongoose = require('mongoose');
-const crypto = require('crypto')
+const crypto = require('crypto');
+const CourseProgress = require('../models/CourseProgress');
 
 // capture the payment and initiate the razrorpay order
 exports.capturePayment = async(req,res) => {
@@ -98,11 +99,19 @@ const enrollStudents = async(courses,userId,res) => {
             })
         }
 
-        // find the course and add the course to their list of enrolledCourses
+        const courseProgress = await CourseProgress.create({
+                courseId:courseId,
+                userId:userId,
+                completedVideos:[],
+            })
+
+        // find the student and add the course to their list of enrolledCourses
+        // also add the course progrss as [] in the schema of user to track completed course
         const enrolledStudent = await User.findByIdAndUpdate(
             userId,
             {
-                $push:{courses:courseId}
+                $push:{courses:courseId},
+                courseProgress: courseProgress._id,
             },
             {new:true},
         )
