@@ -11,6 +11,8 @@ import { formattedDate } from '../utils/dateFormatter'
 import CourseDetailsCard from '../components/core/Course/CourseDetailsCard';
 import { FaCircleInfo } from "react-icons/fa6";
 import { IoIosGlobe } from "react-icons/io";
+import CourseAccordion from '../components/core/Course/CourseAccordion';
+import ReviewSlider from '../components/common/ReviewSlider';
 
 function CourseDetails() {
     const { user } = useSelector((state) => state.profile);
@@ -100,6 +102,7 @@ function CourseDetails() {
 
     const totalReviews = ratingsAndReviews.length;
     const totalStudents = studentsEnrolled.length;
+    const courseDuration = courseData?.data?.totalDuration;
 
     return (
         <div>
@@ -148,13 +151,72 @@ function CourseDetails() {
                 />
             </div>
 
-            <div className='lg:w-[90%] mx-auto my-6'>
-                <div className='lg:w-[50%] border border-dashed border-richblack-700 flex flex-col'>
-                    <div>What you'll learn</div>
-                                        
+            <div className='lg:w-[90%] mx-auto my-6 text-richblack-5'>
+                {/* what will you learn section */}
+                <div className='lg:w-[65%] border border-dashed border-richblack-700 flex flex-col gap-4 px-4 py-6'>
+                    <div className='text-[30px] font=[500]'>
+                        What you'll learn
+                    </div>
+
+                    <div>
+                        {whatYouWillLearn}
+                    </div>                     
+                </div>
+
+                <div className='lg:w-[65%] border border-dashed border-richblack-700 flex flex-col gap-4 px-4 py-6 my-8'>
+                    <div className='text-[24px] font-[600] text-richblack-5'>
+                        Course Contents
+                    </div>
+                    
+                    <div className='flex gap-2 tex-[14px] text-richblack-50 font-[400]'>
+                        <div>
+                            {courseContent.length} Sections
+                        </div>
+
+                        <div>|</div>
+
+                        <div> 
+                            {totalNoOfLecture} Lectures 
+                        </div>
+
+                        <div>|</div>
+
+                        <div>Duration: {courseDuration}</div>
+
+                    </div>
+                    
+                    <CourseAccordion courseContent={courseContent} className="w-full" />
+
+                </div>
+
+                <div className='lg:w-[60%] flex flex-col gap-4 px-4'>
+                    <div className='text-[24px] font-[600]'>
+                        Author
+                    </div>
+
+                    <div className='flex items-center gap-4'>
+                        <div >
+                            <img src={instructor?.image} alt='instructorImage' 
+                            className='aspect-square rounded-full h-[40px] w-[40px]'/>
+                        </div>
+
+                        <div className='text-[16px] font-[500]'>
+                            <span>{instructor.firstName} {instructor.lastName}</span>
+                        </div>
+                    </div>
+
+                    <div className='font-[400] text-[14px] text-richblack-50'>
+                        I will be your lead trainer in this course. Within no time, I will help you to understand the subject in an easy manner. I have a huge experience in online training and recording videos. Let's get started!
+                    </div>
+                </div>
+
+                <div className='flex flex-col mt-16'>
+                    <div className='text-richblack-5 text-[30px] font-[600]'>
+                        See What Other Say About this Course
+                    </div>
+                    <ReviewSlider />
                 </div>
             </div>
-
 
             {confirmationModal && (<ConfirmationModal modalData={confirmationModal} />)}
         </div>

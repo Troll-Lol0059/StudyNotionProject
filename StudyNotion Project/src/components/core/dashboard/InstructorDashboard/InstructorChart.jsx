@@ -45,21 +45,35 @@ function InstructorChart( {courses} ) {
     }
 
   return (
-    <div>
-        <p>Visualize</p>
-        <div>
-            <button onClick={ () => setCurrChart("student") }>
+    <div className="flex flex-1 flex-col gap-y-4 rounded-md bg-richblack-800 p-6">
+        <p className="text-lg font-bold text-richblack-5">Visualize</p>
+        <div className="space-x-4 font-semibold">
+            <button onClick={ () => setCurrChart("student") }
+                className={`rounded-sm p-1 px-3 transition-all duration-200 ${
+                    currChart === "student"
+                    ? "bg-richblack-700 text-yellow-50"
+                        : "text-yellow-400"
+                }`} 
+            >
                 Student
             </button>
 
-            <button onClick={ () => setCurrChart("income") }> 
+            <button onClick={ () => setCurrChart("income") }
+                className={`rounded-sm p-1 px-3 transition-all duration-200 ${
+                    currChart === "income"
+                      ? "bg-richblack-700 text-yellow-50"
+                      : "text-yellow-400"
+            }`}> 
                 Income
             </button>
         </div>
-
-        <Pie
-            data={currChart === "student" ? chartDataForStudents : chartDataForIncome}
-        />
+        
+        <div className="relative mx-auto aspect-square h-[50%] w-[50%]">
+            <Pie
+                data={currChart === "student" ? chartDataForStudents : chartDataForIncome}
+            />
+        </div>
+        
     </div>
   )
 }

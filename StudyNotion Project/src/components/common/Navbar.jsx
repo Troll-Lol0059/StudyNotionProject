@@ -115,7 +115,7 @@ const Navbar = () => {
                         <AiOutlineShoppingCart />
                         {
                             totalItems > 0 && (
-                                <span>
+                                <span className='text-[16px] text-richblack-100 absolute -top-4 left-2'>
                                     {totalItems}
                                 </span>
                             )

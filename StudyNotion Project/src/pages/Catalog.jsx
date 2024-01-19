@@ -7,6 +7,7 @@ import { getCatalog } from '../services/operations/pageAndComponentData';
 import { useSelector } from 'react-redux';
 import CourseSlider from '../components/core/Catalog/CourseSlider';
 import Course_Card from '../components/core/Catalog/CourseCard';
+import ReviewSlider from '../components/common/ReviewSlider'
 
 function Catalog() {
   const { loading } = useSelector((state) => state.profile)
@@ -112,6 +113,8 @@ function Catalog() {
             </div>
           </div>
         </div>
+        
+        <ReviewSlider />
       </div>
 
       <Footer />
