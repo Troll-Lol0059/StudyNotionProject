@@ -2,116 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import IconBtn from '../../common/IconBtn';
-import {IoIosArrowBack} from 'react-icons/io';
-import {BsChevronDown} from 'react-icons/bs';
+import { IoIosArrowBack } from 'react-icons/io';
+import { BsChevronDown } from 'react-icons/bs';
 
 
-function VideoDetailsSidebar( {setReviewModal} ) {
-    const [activeStatus,setActiveStatus] = useState("");
-    const [videoBarActive,setVideoBarActive] = useState("");
-    const navigate = useNavigate();
-    const {sectionId,subSectionId} = useParams();
-    const location = useLocation();
+function VideoDetailsSidebar( { setReviewModal } ) {
+  const [activeStatus, setActiveStatus] = useState("");
+  const [videoBarActive, setVideoBarActive] = useState("");
+  const navigate = useNavigate();
+  const { sectionId, subSectionId } = useParams();
+  const location = useLocation();
 
-    const {
-        courseSectionData,
-        courseEntireData,
-        totalNoOfLectures,
-        completedLectures,
-    } = useSelector( (state) => state.viewCourse );
+  const {
+    courseSectionData,
+    courseEntireData,
+    totalNoOfLectures,
+    completedLectures,
+  } = useSelector((state) => state.viewCourse);
 
-    useEffect( ()=>{
-        ;( ()=>{
-            if(!courseSectionData.length){
-                return;
-            }
-            // gets selected section index
-            const currentSectionIndex = courseSectionData.findIndex(
-                (data) => data._id === sectionId
-            );
-            // gets selected sub section index
-            const currentSubSectionIndex = courseSectionData?.[currentSectionIndex]?.
-                                        subSection.findIndex( (data) => data._id === subSectionId )
-            // gets the sub section id of current visible video
-            const activeSubSectionId = courseSectionData[currentSectionIndex]?.subSection?.
-                                    [currentSubSectionIndex]?._id;
-            // set current section here
-            setActiveStatus(courseSectionData?.[currentSubSectionIndex]?._id);
-            // set current subsection here
-            setVideoBarActive(activeSubSectionId)                       
-        } ) ()
-    }, [courseSectionData,courseEntireData,location.pathname] )
+  useEffect(() => {
+    ; (() => {
+      if (!courseSectionData.length) {
+        return;
+      }
+      // gets selected section index
+      const currentSectionIndex = courseSectionData.findIndex(
+        (data) => data._id === sectionId
+      );
+      // gets selected sub section index
+      const currentSubSectionIndex = courseSectionData?.[currentSectionIndex]?.
+        subSection.findIndex((data) => data._id === subSectionId)
+      // gets the sub section id of current visible video
+      const activeSubSectionId = courseSectionData[currentSectionIndex]?.subSection?.
+      [currentSubSectionIndex]?._id;
+      // set current section here
+      setActiveStatus(courseSectionData?.[currentSubSectionIndex]?._id);
+      // set current subsection here
+      setVideoBarActive(activeSubSectionId)
+    })()
+  }, [courseSectionData, courseEntireData, location.pathname])
 
-//   return (
-//     <div className='text-white'>
-//         <div>
-//             {/* for buttons and headings */}
-//             <div>
-//                 {/* for buttons */}
-//                 <div>
-//                     <div onClick={()=> navigate("/dashboard/enrolled-courses")}>
-//                         Back
-//                     </div>
 
-//                     <div>
-//                         <IconBtn
-//                         text={"Add Review"}
-//                         onClick={() => setReviewModal(true)}
-//                         />
-//                     </div>
-//                 </div>
-//             </div>
-
-//             {/* for heading and title */}
-//             <div>
-//                 <p>{courseEntireData?.courseName}</p>
-//                 <p>{completedLectures.length} / {totalNoOfLectures}</p>
-//             </div>
-
-//             {/* for sections and sub sections */}
-//             {
-//                 courseSectionData?.map( (section,index)=> (
-//                     <div onClick={ () => setActiveStatus(section?._id) } key={index}>
-//                         {/* section 1 */}
-//                         <div>
-//                             <div>
-//                                 {section?.sectionName}
-//                             </div>
-//                             {/* add arrow icon and rotate */}
-//                         </div>
-
-//                         {/* subSections */}
-//                         <div>
-//                             {
-//                                 activeStatus === section?._id && (
-//                                     section.subSection.map( (topic,index)=> (
-//                                         <div key={index}
-//                                             className={`flex ${videoBarActive === topic._id ? 
-//                                                 "bg-yellow-200 text-richblack-900" : 
-//                                                 "bg-richblack-900 text-richblack-5" }`} 
-//                                                 onClick={ () => {
-//                                                     navigate(`/view-course/${courseEntireData._id}/section/${section._id}/sub-section/${topic._id}`)
-//                                                     setVideoBarActive(topic?._id);
-//                                                 } }
-//                                             >
-//                                             <input type='checkbox' 
-//                                             checked={completedLectures.includes(topic?._id)}
-//                                             onChange={ ()=> {} }
-//                                             />
-
-//                                             <span>{topic.title}</span>
-//                                         </div>
-//                                     ) )
-//                                 )
-//                             }
-//                         </div>
-//                     </div>
-//                  ) )
-//             }
-//         </div>
-//     </div>
-//   )
-return (
+  return (
     <>
       <div className="flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800">
         <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
@@ -128,7 +60,7 @@ return (
             <IconBtn
               text="Add Review"
               customClasses="ml-auto"
-              onclick={() => setReviewModal(true)}
+              onclick={ () => setReviewModal(true) }
             />
           </div>
           <div className="flex flex-col">
@@ -156,11 +88,10 @@ return (
                     Lession {course?.subSection.length}
                   </span> */}
                   <span
-                    className={`${
-                      activeStatus === course?.sectionName
+                    className={`${activeStatus === course?.sectionName
                         ? "rotate-0"
                         : "rotate-180"
-                    } transition-all duration-500`}
+                      } transition-all duration-500`}
                   >
                     <BsChevronDown />
                   </span>
@@ -172,11 +103,10 @@ return (
                 <div className="transition-[height] duration-500 ease-in-out">
                   {course.subSection.map((topic, i) => (
                     <div
-                      className={`flex gap-3  px-5 py-2 ${
-                        videoBarActive === topic._id
+                      className={`flex gap-3  px-5 py-2 ${videoBarActive === topic._id
                           ? "bg-yellow-200 font-semibold text-richblack-800"
                           : "hover:bg-richblack-900"
-                      } `}
+                        } `}
                       key={i}
                       onClick={() => {
                         navigate(
@@ -188,7 +118,7 @@ return (
                       <input
                         type="checkbox"
                         checked={completedLectures.includes(topic?._id)}
-                        onChange={() => {}}
+                        onChange={() => { }}
                       />
                       {topic.title}
                     </div>

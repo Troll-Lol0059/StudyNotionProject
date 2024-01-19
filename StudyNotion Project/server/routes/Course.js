@@ -40,14 +40,15 @@ const {
 
 // Rating Controllers Import
 const {
-  createRating,
+  createRatingAndReview,
   getAverageRating,
-  getAllRatingReview,
+  getAllRating,
 } = require("../controllers/RatingandReview")
 const {
   updateCourseProgress,
   getProgressPercentage,
 } = require("../controllers/courseProgress")
+
 // Importing Middlewares
 
 const { auth, isInstructor, isStudent, isAdmin } = require("../middlewares/auth")
@@ -99,8 +100,8 @@ router.post("/getCategoryPageDetails", categoryPageDetails)
 // ********************************************************************************************************
 //                                      Rating and Review
 // ********************************************************************************************************
-// router.post("/createRating", auth, isStudent, createRating)
+router.post("/createRating", auth, isStudent, createRatingAndReview)
 router.get("/getAverageRating", getAverageRating)
-// router.get("/getReviews", getAllRatingReview)
+router.get("/getReviews", getAllRating)
 
 module.exports = router

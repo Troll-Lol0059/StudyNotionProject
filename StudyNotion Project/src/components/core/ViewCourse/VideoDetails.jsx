@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-
 import "video-react/dist/video-react.css"
 import { useLocation } from "react-router-dom"
 import { BigPlayButton, Player } from "video-react"
-
 import { markLectureAsComplete } from "../../../services/operations/courseDetailsAPI"
 import { updateCompletedLectures } from "../../../slices/viewCourseSlice"
 import IconBtn from "../../common/IconBtn"
@@ -45,7 +43,7 @@ const VideoDetails = () => {
         setVideoEnded(false)
       }
     })()
-  }, [courseSectionData, courseEntireData, location.pathname])
+  }, [courseSectionData, courseEntireData,location.pathname])
 
   // check if the lecture is the first video of the course
   const isFirstVideo = () => {
@@ -158,12 +156,18 @@ const VideoDetails = () => {
 
   const handleLectureCompletion = async() => {
     setLoading(true)
-    const res = await markLectureAsComplete(
-      { courseId: courseId, subSectionId: subSectionId },
-      token
-    )
-    if (res) {
-      dispatch(updateCompletedLectures(subSectionId))
+
+    if(completedLectures.includes(subSectionId)){
+        console.log("Lecture ALready Completed");
+        return;
+    }else{
+        const res = await markLectureAsComplete(
+            { courseId: courseId, subSectionId: subSectionId },
+            token
+        )
+        if(res) {
+            dispatch(updateCompletedLectures(...subSectionId));
+        }
     }
     setLoading(false)
   }

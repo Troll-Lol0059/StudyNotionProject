@@ -42,7 +42,7 @@ export default function CourseReviewModal( {setReviewModal} ) {
             {/* Modal Header  */}
             <div>
                 <p>Add Review</p>
-                <div onClick={setReviewModal(false)}>
+                <div onClick={ () => setReviewModal(false) }>
                     Close
                 </div>
 

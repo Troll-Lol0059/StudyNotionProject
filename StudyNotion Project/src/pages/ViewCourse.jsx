@@ -43,7 +43,12 @@ const ViewCourse = () => {
           </div>
         </div>
       </div>
-      {reviewModal && <CourseReviewModal setReviewModal={setReviewModal} />}
+      
+      <div className='text-[50px] text-white'>{reviewModal}</div>
+      {
+        reviewModal && ( <CourseReviewModal setReviewModal={setReviewModal} />  )
+      }
+      
     </>
   )
 }

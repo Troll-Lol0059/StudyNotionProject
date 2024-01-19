@@ -2,19 +2,17 @@ const RatingAndReview = require('../models/RatingAndReviews');
 const Course = require('../models/Course');
 
 // create a rating
-exports.CreateRatingAndReview = async(req,res) => {
+exports.createRatingAndReview = async(req,res) => {
     try{
         // get user ID
         const userId = req.user.id;
         // fetch data from req.body
         const {rating,review,courseId} = req.body;
         // check if user is enrolled or not
-        const courseDetails = await Course.findOne(
-            {_id:courseId,
-            // student Enrolled section ke andar kya userId match ho raha hai kisi ka
-            studentsEnrolled: {$selectMatch: {$eq:userId} },
-            }
-        )
+        const courseDetails = await Course.findOne({
+            _id: courseId,
+            studentsEnrolled: { $elemMatch: { $eq: userId } },
+          })
 
         if(!courseDetails){
             return res.status(404).json({
@@ -37,7 +35,7 @@ exports.CreateRatingAndReview = async(req,res) => {
             })
         }
         // create a new rating and review
-        const ratingReview = await RatingAndReview({
+        const ratingReview = await RatingAndReview.create({
             rating,
             review,
             course:courseId,
@@ -62,7 +60,7 @@ exports.CreateRatingAndReview = async(req,res) => {
             message:"Rating and review created successfully",
         })
     }catch(error){
-        console.log("Error Occured at Rating creation");
+        console.log("Error Occured at Rating creation",error);
         return res.status(500).json({
             success:true,
             message:error.message,
@@ -137,9 +135,10 @@ exports.getAllRating = async(req,res) => {
         return res.status(200).json({
             success:true,
             message:"All ratings fetched successfully",
+            data:allReviews,
         })
     }catch(error){
-        console.log("Error occured at Fetching All ratings");
+        console.log("Error occured at Fetching All ratings",error);
         return res.status(500).json({
             success:false,
             message:error.message,
