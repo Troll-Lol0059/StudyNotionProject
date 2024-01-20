@@ -4,12 +4,12 @@ import { Link, matchPath } from 'react-router-dom'
 import {NavbarLinks} from "../../data/navbar-links"
 import { useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import {AiOutlineShoppingCart} from "react-icons/ai"
 import ProfileDropDown from '../core/auth/ProfileDropDown';
 import { apiConnector } from '../../services/apiconnector';
 import { categories } from '../../services/apis';
 import { useState } from 'react'
 import {IoIosArrowDropdownCircle} from "react-icons/io"
+import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
 
 
 const Navbar = () => {
@@ -20,6 +20,7 @@ const Navbar = () => {
     const location = useLocation();
 
     const [subLinks, setSubLinks]  = useState([]);
+    const [isNavOpen,setIsNavOpen] = useState(false);
 
     const fetchSublinks = async() => {
         try{
@@ -50,14 +51,20 @@ const Navbar = () => {
       </Link>
 
       {/* Nav Links */}
-      <nav>
+      {/* <nav className="hidden md:block"> */}
+      <nav className={`${isNavOpen ? 'block' : 'hidden'} md:block`}>
         <ul className='flex gap-x-6 text-richblack-25'>
         {
             NavbarLinks.map( (link, index) => (
                  <li key={index}>
                     {
                         link.title === "Catalog" ? (
-                            <div className='relative flex items-center gap-2 group cursor-pointer'>
+                            <div
+                            className={`group relative flex cursor-pointer items-center gap-1 ${
+                              matchRoute("/catalog/:catalogName")
+                                ? "text-yellow-25"
+                                : "text-richblack-25"
+                            }`} >
                                 <p>{link.title}</p>
                                 <IoIosArrowDropdownCircle/>
 
@@ -77,7 +84,8 @@ const Navbar = () => {
                                     (
                                             subLinks.map( (subLink, index) => (
                                                 <Link to={`catalog/${subLink.name.split(' ').join('-').toLowerCase()}`} 
-                                                    key={index}>
+                                                    key={index}
+                                                    className="rounded-lg bg-transparent py-4 pl-4 hover:bg-richblack-50" >
                                                     <p>{subLink.name}</p>
                                                 </Link>
                                             ) )
@@ -107,7 +115,7 @@ const Navbar = () => {
 
 
         {/* Login/SignUp/Dashboard */}
-        <div className='flex gap-x-6 items-center'>
+        <div className='hidden items-center gap-x-4 md:flex'>
 
             {
                 user && user?.accountType != "Instructor" && (
@@ -146,7 +154,10 @@ const Navbar = () => {
             }
             
         </div>
-
+        
+        <button className="mr-4 md:hidden" onClick={ () => setIsNavOpen(!isNavOpen) }>
+          <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+        </button>
 
       </div>
     </div>
