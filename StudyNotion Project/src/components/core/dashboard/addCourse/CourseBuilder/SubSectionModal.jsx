@@ -194,6 +194,7 @@ export default function SubSectionModal({
               <IconBtn
                 disabled={loading}
                 text={loading ? "Loading.." : edit ? "Save Changes" : "Save"}
+                customClasses={'px-4 py-1 bg-yellow-50 text-richblack-700 rounded-md'}
               />
             </div>
           )}

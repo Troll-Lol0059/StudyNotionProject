@@ -101,7 +101,9 @@ export default function CoursesTable( {courses,setCourses} ){
                                     disabled={loading} 
                                     onClick={ () => {
                                         navigate(`/dashboard/edit-course/${course._id}`)
-                                    } }>
+                                    } }
+                                    className="hover:text-yellow-50"
+                                    >
                                         <MdEdit />
                                     </button>
 
@@ -116,7 +118,8 @@ export default function CoursesTable( {courses,setCourses} ){
                                             btn1Handler: !loading ? () => handleCourseDelete(course._id) : () => {},
                                             btn2Handler: setConfirmationModal(null)
                                         })
-                                    } }>
+                                    } }
+                                    className="hover:text-yellow-50" >
                                         <MdDelete />
                                     </button>
                                 </Td>

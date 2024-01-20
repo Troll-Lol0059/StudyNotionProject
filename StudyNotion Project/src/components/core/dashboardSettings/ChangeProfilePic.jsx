@@ -68,7 +68,7 @@ export default function ChangeProfilePicture() {
           />
           <div className="space-y-2">
             <p>Change Profile Picture</p>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row gap-4">
               <input
                 type="file"
                 ref={fileInputRef}
@@ -86,6 +86,7 @@ export default function ChangeProfilePicture() {
               <IconBtn
                 text={loading ? "Uploading..." : "Upload"}
                 onclick={handleFileUpload}
+                customClasses={'flex gap-2 items-center bg-yellow-50 px-4 py-1 rounded-md text-richblack-900 font-[500]'}
               >
                 {!loading && (
                   <FiUpload className="text-lg text-richblack-900" />
