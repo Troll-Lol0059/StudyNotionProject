@@ -23,7 +23,7 @@ export default function DeleteAccount() {
           <h2 className="text-lg font-semibold text-richblack-5">
             Delete Account
           </h2>
-          <div className="w-3/5 text-pink-25">
+          <div className="lg:w-3/5 text-pink-25">
             <p>Would you like to delete account?</p>
             <p>
               This account may contain Paid Courses. Deleting your account is

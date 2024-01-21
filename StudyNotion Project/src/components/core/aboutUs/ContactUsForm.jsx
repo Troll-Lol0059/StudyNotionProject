@@ -49,8 +49,8 @@ const ContactUsForm = () => {
 
 
     return(
-        <form onSubmit={handleSubmit(handleForm)} className="flex flex-col gap-4 mb-8">
-            <div className="lg:flex justify-between w-[100%] gap-8">
+        <form onSubmit={handleSubmit(handleForm)} className=" lg:w-fit flex flex-col gap-4 mb-8 w-[90%] mx-auto">
+            <div className="lg:flex gap-4 justify-between lg:w-[100%]">
                 <div className="flex flex-col lg:w-[100%]">
                     <label htmlFor="firstName">First Name: </label>
                     <input type="text" name="firstName" className="input mt-2" {...register("firstName",{required:true})} />

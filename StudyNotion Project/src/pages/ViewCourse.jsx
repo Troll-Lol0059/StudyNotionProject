@@ -35,9 +35,9 @@ const ViewCourse = () => {
       }, [])
   return (
     <>
-      <div className="relative flex min-h-[calc(100vh-3.5rem)]">
+      <div className="relative lg:flex lg:min-h-[calc(100vh-3.5rem)]">
         <VideoDetailsSidebar setReviewModal={setReviewModal} />
-        <div className="h-[calc(100vh-3.5rem)] flex-1 overflow-auto">
+        <div className="lg:h-[calc(100vh-3.5rem)] lg:flex-1 overflow-auto">
           <div className="mx-6">
             <Outlet />
           </div>
@@ -46,7 +46,7 @@ const ViewCourse = () => {
       
       <div className='text-[50px] text-white'>{reviewModal}</div>
       {
-        reviewModal && ( <CourseReviewModal setReviewModal={setReviewModal} />  )
+        reviewModal &&( <CourseReviewModal setReviewModal={setReviewModal} />  )
       }
       
     </>

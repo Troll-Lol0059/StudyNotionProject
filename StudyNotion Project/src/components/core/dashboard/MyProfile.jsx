@@ -20,8 +20,8 @@ function MyProfile() {
                 <h1 className='text-3xl font-[500] text-richblack-5'>My Profile</h1>
             </div>
 
-            <div className='flex flex-col justify-center gap-4 lg:w-[65%] bg-richblack-800 p-6 mx-12 my-12 rounded-md'>
-                <div className='flex justify-between items-center'>
+            <div className='lg:flex flex-col justify-center gap-4 lg:w-[65%] bg-richblack-800 p-6 mx-12 my-12 rounded-md'>
+                <div className='lg:flex justify-between items-center'>
                     <div className='flex gap-4 items-center'>
                         <img src={user?.image}
                             alt={`profile-${user?.firstName}`}
@@ -37,7 +37,7 @@ function MyProfile() {
                         </div>
                     </div>
 
-                    <div>
+                    <div className='lg:px-0 lg:py-0 px-24 py-2'>
                         <IconBtn
                             text={"Edit"}
                             onclick={() => { navigate("/dashboard/settings") }}
@@ -48,8 +48,8 @@ function MyProfile() {
                 </div>
             </div>
 
-            <div className='flex flex-col justify-center gap-4 lg:w-[65%] bg-richblack-800 p-6 mx-12 my-12 rounded-md font-Inter'>
-                <div className='flex justify-between items-center'>
+            <div className='lg:flex flex-col justify-center gap-4 lg:w-[65%] bg-richblack-800 p-6 mx-12 my-12 rounded-md font-Inter'>
+                <div className='lg:flex justify-between items-center'>
                     <div className='richblack-5 font-[600] text-[18px]'>
                         Personal Details
                     </div>

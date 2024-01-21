@@ -5,7 +5,7 @@ import { ImTree } from "react-icons/im";
 function CourseCard({ cardData, currentCard, setCurrentCard }) {
 
     return (
-        <div className={`flex flex-col w-[26%] font-inter px-6 gap-6 justify-center
+        <div className={`flex flex-col lg:w-[26%] font-inter px-6 gap-6 justify-center
          cursor-pointer rounded-md
         ${cardData.heading === currentCard ? "bg-white text-richblack-500 shadow-[12px_12px_0_0] shadow-yellow-50": "bg-richblack-800 text-richblack-25" }`
         } onClick={ ()=> {setCurrentCard(cardData.heading)} }>

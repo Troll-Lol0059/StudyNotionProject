@@ -64,7 +64,7 @@ const ContactUs = () => {
                     }
                 </div>
 
-                <div className="w-[42%] border border-richblack-600 p-6 rounded-md flex flex-col gap-2">
+                <div className="lg:w-[42%] border border-richblack-600 p-6 rounded-md flex flex-col gap-2">
                     <div className="text-3xl text-richblack-5 font-semibold">
                         Got a Idea? We’ve got the skills. Let’s team up
                     </div>

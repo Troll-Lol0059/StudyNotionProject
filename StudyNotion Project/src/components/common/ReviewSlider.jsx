@@ -33,9 +33,9 @@ const ReviewSlider = () => {
     } , [] )
     return (
         <div className="text-white">
-          <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
+          <div className="lg:my-[50px] lg:h-[184px] w-full my-8">
             <Swiper
-              slidesPerView={4}
+              // slidesPerView={4}
               spaceBetween={25}
               loop={true}
               freeMode={true}
@@ -43,12 +43,24 @@ const ReviewSlider = () => {
                 delay: 2500,
                 disableOnInteraction: false,
               }}
+              breakpoints={{
+                // when window width is >= 640px
+                640: {
+                  width: 640,
+                  slidesPerView: 1,
+                },
+                // when window width is >= 768px
+                768: {
+                  width: 768,
+                  slidesPerView: 4,
+                },
+              }}
               modules={[FreeMode, Pagination, Autoplay]}
-              className="w-full "
+              className="w-full"
             >
               {reviews.map((review, i) => {
                 return (
-                  <SwiperSlide key={i}>
+                  <SwiperSlide key={i} className=''>
                     <div className="flex flex-col gap-4 bg-richblack-800 p-3 text-[14px] text-richblack-25 rounded-md">
                       <div className="flex items-center gap-4">
                         <img

@@ -47,12 +47,12 @@ function CourseDetailsCard({ course, setConfirmationModal, handleBuyCourse }) {
     }
 
     return (
-        <div className='bg-richblack-500 lg:w-[370px] rounded-md pb-4'>
+        <div className='bg-richblack-500 lg:w-[370px] w-[95%] mx-auto rounded-md pb-4'>
             <img src={thumbnailImage} alt='course thumbnail'
-                className='max-h-[300px] min-h-[100px] w-fit h-[200px] rounded-md'
+                className='max-h-[300px] min-h-[100px] w-full h-[200px] rounded-md'
             />
 
-            <div className='lg:w-[90%] mx-auto flex flex-col gap-4'>
+            <div className='lg:w-[90%] lg:mx-auto mx-8 flex flex-col gap-4'>
                 <div className='w-full'>
                     <div className='text-richblack-5 font-inter font-[700] text-[30px] mt-2'>
                         Rs. {currentPrice}

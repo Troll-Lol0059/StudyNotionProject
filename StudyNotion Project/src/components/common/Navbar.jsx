@@ -43,8 +43,9 @@ const Navbar = () => {
     }
 
   return (
-    <div className='flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
-      <div className='flex w-11/12 max-w-maxContent items-center justify-between'>
+    <div className='relative flex h-14 items-center justify-center border-b-[1px] border-b-richblack-700'>
+      <div className={`${isNavOpen ? 'relative flex flex-col gap-6 px-8 bg-richblack-800 h-fit w-[70%] mx-auto py-8 top-[150px] rounded-md transition-all ease-in duration-[2000ms] delay-1000 z-10000' : 
+        'hidden lg:flex w-11/12 max-w-maxContent items-center justify-between' }`}>
         {/* Image */}
       <Link to="/">
         <img src={logo} width={160} height={42} loading='lazy'/>
@@ -52,8 +53,8 @@ const Navbar = () => {
 
       {/* Nav Links */}
       {/* <nav className="hidden md:block"> */}
-      <nav className={`${isNavOpen ? 'block' : 'hidden'} md:block`}>
-        <ul className='flex gap-x-6 text-richblack-25'>
+      <nav className='md:block'>
+        <ul className='lg:flex gap-x-6 gap-y-6 text-richblack-25'>
         {
             NavbarLinks.map( (link, index) => (
                  <li key={index}>
@@ -115,8 +116,7 @@ const Navbar = () => {
 
 
         {/* Login/SignUp/Dashboard */}
-        <div className='hidden items-center gap-x-4 md:flex'>
-
+        <div className={'md:flex items-center gap-x-4 space-x-4'}>
             {
                 user && user?.accountType != "Instructor" && (
                     <Link to="/dashboard/cart" className='relative text-[24px] text-richblack-5'>
@@ -133,8 +133,8 @@ const Navbar = () => {
             }
             {
                 token === null && (
-                    <Link to="/login">
-                        <button className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                    <Link to="/login" className=''>
+                        <button className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md hover:text-yellow-50'>
                             Log in
                         </button>
                     </Link>
@@ -143,7 +143,7 @@ const Navbar = () => {
             {
                 token === null && (
                     <Link to="/signup">
-                        <button  className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md'>
+                        <button  className='border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] text-richblack-100 rounded-md hover:text-yellow-50'>
                             Sign Up
                         </button>
                     </Link>
@@ -155,11 +155,18 @@ const Navbar = () => {
             
         </div>
         
-        <button className="mr-4 md:hidden" onClick={ () => setIsNavOpen(!isNavOpen) }>
-          <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
-        </button>
-
       </div>
+
+        {/* large case logo */}
+        <div className="flex !justify-center md:hidden">
+            <Link to="/" className={`${isNavOpen ? 'hidden':'block'}`}>
+                <img src={logo} width={160} height={42} loading='lazy'/>
+             </Link>
+        </div>
+
+        <button className="absolute !left-5 md:hidden" onClick={ () => setIsNavOpen(!isNavOpen) }>
+            <AiOutlineMenu fontSize={24} fill="#AFB2BF" />
+        </button>
     </div>
   )
 }

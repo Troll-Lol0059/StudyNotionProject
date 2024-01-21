@@ -21,7 +21,7 @@ const data = [
 
 function Stats() {
   return (
-    <div className='bg-richblack-700 relative lg:w-[100vw] flex flex-col items-center justify-center mt-20 mb-8'>
+    <div className='bg-richblack-700 relative w-[100vw] lg:flex flex-col items-center justify-center mt-20 mb-8'>
         <div className='lg:w-11/12 font-inter font-[500] flex justify-evenly items-center py-14'>
             {
                 data.map( (element,index) => (

@@ -39,7 +39,7 @@ function ChangePassword({ user }) {
             </div>
 
             <form className="flex flex-col" onSubmit={handleSubmit(submitHandler)}>
-                <div className="flex gap-12">
+                <div className="lg:flex gap-12">
 
                     {/* current password */}
                     <div className="flex flex-col gap-1 lg:w-[45%] relative">

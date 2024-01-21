@@ -19,16 +19,16 @@ function Course_Card({ course, Height }) {
 
   return (
     <>
-      <Link to={`/courses/${course._id}`}>
-        <div className="">
+      <Link to={`/courses/${course._id}`} >
+        <div className="lg:w-[90%]">
           <div className="rounded-lg">
             <img
               src={course?.thumbnail}
-              alt="course thumnail"
-              className={`${Height} w-full rounded-xl object-cover`}
+              alt="course thumbnail"
+              className={`${Height} lg:w-full w-screen rounded-xl object-cover`}
             />
           </div>
-          <div className="flex flex-col gap-2 px-1 py-3">
+          <div className="lg:flex flex-col gap-2 px-1 py-3">
             <p className="text-xl text-richblack-5">{course?.courseName}</p>
             <p className="text-sm text-richblack-50">
               By {course?.instructor?.firstName} {course?.instructor?.lastName}

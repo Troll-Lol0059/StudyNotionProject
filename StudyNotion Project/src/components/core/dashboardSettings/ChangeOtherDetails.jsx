@@ -34,12 +34,12 @@ function ChangeOtherDetails({ user }) {
     }
 
     return (
-        <form className="bg-richblack-800 text-richblack-700 p-4 gap-2 rounded-md flex flex-col"
+        <form className="bg-richblack-800 text-richblack-700 p-4 gap-2 rounded-md lg:flex flex-col lg:w-full w-fit"
             onSubmit={handleSubmit(submitProfileForm)} >
             <div className="text-[18px] font-[600] text-richblack-5">Profile Information</div>
 
             {/* name & profession div */}
-            <div className="flex lg:w-[100%] gap-12">
+            <div className="lg:flex lg:w-[100%] gap-12">
                 {/* name div */}
                 <div className="flex flex-col gap-1 lg:w-[45%]">
                     <div className="text-richblack-5 text-[14px] font-[400]">
@@ -124,7 +124,7 @@ function ChangeOtherDetails({ user }) {
                 </div>
             </div>
 
-            <div className="flex lg:w-[100%] gap-12">
+            <div className="lg:flex lg:w-[100%] gap-12">
                 {/* phone number div */}
                 <div className="flex flex-col gap-1 lg:w-[45%]">
                     <div className="text-richblack-5 text-[14px] font-[400]">

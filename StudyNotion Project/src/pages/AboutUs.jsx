@@ -19,11 +19,11 @@ function AboutUs() {
             <section className='lg:w-[100%] bg-richblack-800 flex justify-center items-center'>
 
                 <div className='relative w-11/12 mx-auto flex flex-col items-center justify-center my-36'>
-                    <h1 className='text-3xl w-[55%] text-center font-inter font-semibold'>Driving Innovation in Online Education for a
+                    <h1 className='text-3xl lg:w-[55%] text-center font-inter font-semibold'>Driving Innovation in Online Education for a
                         <HighlightText text={"Brighter Future"} />
                     </h1>
 
-                    <div className='w-[60%] my-6 text-base font-inter font-[500] text-center'>
+                    <div className='lg:w-[60%] my-6 text-base font-inter font-[500] text-center'>
                         Studynotion is at the forefront of driving innovation in online education. We're passionate about creating a brighter future by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.
                     </div>
 
@@ -31,7 +31,7 @@ function AboutUs() {
             </section>
 
 
-            <section className='lg:w-[100%] bg-richblack-900 flex flex-col justify-center items-center  lg:my-[15rem]'>
+            <section className='lg:w-[100%] bg-richblack-900 flex flex-col justify-center items-center lg:my-[15rem]'>
 
                 <Quote />
 
@@ -41,7 +41,7 @@ function AboutUs() {
 
                 <LearningSection />
 
-                <div className="lg: w-11/12 mx-auto flex flex-col justify-center items-center gap-2 mt-40">
+                <div className="lg:w-11/12 mx-auto flex flex-col justify-center items-center gap-2 mt-40">
                     <div className="text-3xl font-semibold text-richblack-5">
                         Get In Touch
                     </div>

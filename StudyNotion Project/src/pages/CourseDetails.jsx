@@ -143,7 +143,7 @@ function CourseDetails() {
                 </div>
             </div>
 
-            <div className='absolute lg:top-[15%] lg:right-[5%]'>
+            <div className='lg:absolute lg:top-[15%] lg:right-[5%] mt-2'>
                 <CourseDetailsCard
                     course={courseData?.data.courseDetails}
                     setConfirmationModal={setConfirmationModal}

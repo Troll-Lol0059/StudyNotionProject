@@ -131,19 +131,19 @@ const Home = () => {
             </section>
 
             {/* section 2 */}
-            <section className='text-richblack-700 bg-white pb-4'>
-                <div className='homepage_bg h-[310px]'>
+            <section className='text-richblack-700 bg-white lg:pb-4'>
+                <div className='homepage_bg lg:h-[310px]'>
                     <div className='w-11/12 max-w-maxContent flex justify-center items-center gap-5 mx-auto'>
-                        <div className='flex gap-7 text-white mt-[150px]'>
+                        <div className='flex gap-7 text-white lg:mt-[150px] mt-[50px]'>
                             <CTAButton active={true} linkto={'/signup'}>
-                                <div className='flex gap-3 items-center'>
+                                <div className='flex lg:gap-3 gap-1 items-center'>
                                     Explore Full Catalog
                                     <FaArrowRight />
                                 </div>
                             </CTAButton>
 
                             <CTAButton active={false} linkto={"/signup"}>
-                                <div>
+                                <div className='flex'>
                                     Learn More
                                 </div>
                             </CTAButton>
@@ -151,15 +151,14 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className='w-[80%] mx-auto max-w-maxContent flex justify-center items-center gap-5 mt-[95px]'>
-                    <div className='flex gap-5 my-10'>
-                        <div className='w-[45%] text-3xl font-semibold'>
+                <div className='w-[80%] mx-auto max-w-maxContent flex justify-center items-center gap-5 lg:mt-[95px] mt-[50px]'>
+                    <div className='lg:flex gap-5 my-10'>
+                        <div className='lg:w-[45%] text-3xl font-semibold'>
                             Get the skiils you need for
                             <HighlightText text={"Job that is in demand"} />
                         </div>
 
-
-                        <div className='flex flex-col gap-10 w-[48%] items-start'>
+                        <div className='flex flex-col gap-10 lg:w-[48%] items-start lg:mt-0 mt-4'>
                             <div className='text-[16px]'>
                                 The modern Studynotion is the dictates its own terms. Today, to be a competitive specialist requires
                                 more than professional skills.

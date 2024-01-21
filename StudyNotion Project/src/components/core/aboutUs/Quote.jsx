@@ -6,7 +6,7 @@ function Quote() {
     return (
         <div className='relative lg:w-11/12 mx-auto flex flex-col items-center justify-center'>
 
-            <div className='lg:w-[80%] text-3xl font-inter font-[500] text-center lg:flex text-richblack-100'>
+            <div className='lg:w-[80%] text-3xl font-inter font-[500] text-center lg:flex text-richblack-100 lg:mt-0 mt-10'>
 
                 <span className='relative'>We are passionate about revolutionizing the way we learn.
                     Our innovative platform
@@ -15,8 +15,8 @@ function Quote() {
                     and community to create an
                     <span className='text-[#F9D423]'> unparalleled educational experience.</span>
 
-                    <span className='lg:absolute -top-1 -left-5'><FaQuoteLeft /></span>
-                    <span className='lg:absolute'><FaQuoteRight /></span>
+                    <span className='lg:absolute hidden -top-1 -left-5'><FaQuoteLeft /></span>
+                    <span className='lg:absolute hidden'><FaQuoteRight /></span>
                 </span>
 
             </div>

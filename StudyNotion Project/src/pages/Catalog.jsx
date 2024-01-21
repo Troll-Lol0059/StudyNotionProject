@@ -72,7 +72,7 @@ function Catalog() {
       </div>
 
       <div className='lg:w-[90%] mx-auto text-richblack-300'>
-        <div className='flex flex-col gap-8'>
+        <div className='lg:flex flex-col gap-8'>
           {/* section 1 */}
           <div className='space-y-3'>
             <h1 className='text-richblack-5 font-[600] text-[30px]'>Courses to get you started</h1>

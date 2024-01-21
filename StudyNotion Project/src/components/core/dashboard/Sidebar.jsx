@@ -26,9 +26,9 @@ function Sidebar() {
 
   return (
     <div>
-        <div className='flex lg:min-w-[120px] flex-col border-r-[1px] border-richblack-800
-                h-[calc(100vh-3.5rem)] bg-richblack-700'>
-            <div className='flex flex-col'>
+        <div className='flex lg:min-w-[120px] lg:flex-col w-fit border-r-[1px] border-richblack-800
+                lg:h-[calc(100vh-3.5rem)] bg-richblack-700 flex-wrap'>
+            <div className='flex lg:flex-col'>
                     {
                         sidebarLinks.map( (link,index) => {
                             if(link.type && user?.accountType !== link.type) return null;
@@ -40,9 +40,9 @@ function Sidebar() {
                     }
             </div>
 
-            <div className='mx-auto my-6 h-[1px] w-10/12 bg-richblack-500'></div>
+            <div className='mx-auto my-6 h-[1px] lg:w-10/12 bg-richblack-500'></div>
             
-            <div className='flex flex-col'>
+            <div className='flex lg:flex-col'>
                     <SidebarLink link={ {name:"Settings",
                                         path:"dashboard/settings"}}
                                         iconName={"VscSettingsGear"}
@@ -59,9 +59,9 @@ function Sidebar() {
                                 btn2Handler: () => setConfirmationModal(null),
                             } 
                         )}
-                        className='text-sm font-medium text-richblack-200 relative px-8 py-2'>
+                        className='text-sm font-medium text-richblack-200 relative lg:px-8 py-2'>
                         
-                        <div className='flex items-center gap-x-2'>
+                        <div className='flex items-center lg:gap-x-2'>
                             <VscSignOut className='text-lg'/>
                             <span>Logout</span>
                         </div>

@@ -26,12 +26,14 @@ const ExploreMore = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       {/* Explore more section */}
-      <div>
+      <div className="">
         <div className="text-4xl font-semibold text-center my-10">
-          Unlock the
-          <HighlightText text={"Power of Code"} />
+          <div className="lg:flex justify-center gap-2">
+            <div>Unlock the </div>
+            <HighlightText text={"Power of Code"} />
+          </div>
           <p className="text-center text-richblack-300 text-lg font-semibold mt-1">
             Learn to Build Anything You Can Imagine
           </p>
@@ -59,7 +61,7 @@ const ExploreMore = () => {
       <div className="hidden lg:block lg:h-[100px]"></div>
 
       {/* Cards Group */}
-      <div className="flex gap-8 justify-center items-center rounded-lg mb-8">
+      <div className="lg:flex space-y-6 gap-8 justify-center items-center rounded-lg mb-8">
         {courses.map((ele, index) => {
           return (
             <CourseCard

@@ -18,7 +18,7 @@ function Dashboard() {
     }
 
   return (
-    <div className='relative flex min-h-[calc(100vh-3.5rem)]'>
+    <div className='relative lg:flex min-h-[calc(100vh-3.5rem)] z-0'>
         <Sidebar />
 
         <div className='h-[calc(100vh-3.5rem)] overflow-auto lg:w-[90%] mx-auto'>

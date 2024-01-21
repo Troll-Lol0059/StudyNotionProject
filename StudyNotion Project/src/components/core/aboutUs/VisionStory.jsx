@@ -29,10 +29,10 @@ function VisionStory() {
         <div className='relative lg:w-11/12 mx-auto flex flex-col items-center justify-center mt-20'>
 
             <div className='lg:w-[80%] font-inter font-[500] text-richblack-100
-            grid grid-rows-2 grid-cols-2 gap-24 gap-y-12 justify-between px-8 pt-20 items-center'>
+                grid lg:grid-rows-2 lg:grid-cols-2 gap-24 gap-y-12 justify-between px-8 pt-20 items-center'>
                     {
                         data.map( (element,index) => (
-                            <div key={index}>
+                            <div key={index} className='w-full'>
                                 {
                                     index == 1 ? 
                                     <div className='relative'> 
