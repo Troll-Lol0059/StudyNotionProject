@@ -161,6 +161,7 @@ exports.login = async (req, res) => {
         // get data from req body
         const { email, password } = req.body;
         // validate data
+        
         if (!email || !password) {
             return res.json(403).json({
                 success: false,
@@ -182,12 +183,13 @@ exports.login = async (req, res) => {
                 id: user._id,
                 role: user.accountType,
             }
-            const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {
                 expiresIn: "2h",
             });
             user = user.toObject();
             user.token = token;
             user.password = undefined;
+
             // create cookie and send response
             const options = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
@@ -197,7 +199,7 @@ exports.login = async (req, res) => {
                 success: true,
                 token,
                 user,
-                message: "Logged In SuccessFully"
+                message:"Logged In SuccessFully"
             })
         }else{
             // if password is wrong
@@ -210,7 +212,7 @@ exports.login = async (req, res) => {
         console.log("Error Occured while logging In",error);
         return res.status(500).json({
             success:false,
-            message:"Login Failure. Please try again"
+            message:"Login Failure. Please try again",
         })
     }
 }

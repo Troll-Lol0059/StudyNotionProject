@@ -19,12 +19,12 @@ exports.auth = async(req,res,next) => {
         }
         // else verify token
         try{
-            const decode = jwt.verify(token,process.env.JWT_SECRET);
+            const decode = jwt.verify(token,process.env.JWT_SECRET_KEY);
             console.log(decode);
             req.user = decode;
         }catch(err){
             // verification issue
-            console.log("Issue in token verification");
+            console.log("Issue in token verification",err);
             return res.status(401).json({
                 success:false,
                 message:"Token is Invalid",
@@ -39,6 +39,8 @@ exports.auth = async(req,res,next) => {
        }) 
     }
 }
+
+
 
 // is Student -> verify if the role is student or not
 exports.isStudent = async(req,res,next) => {
